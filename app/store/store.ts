@@ -1,5 +1,8 @@
+// Redux
 import { configureStore } from "@reduxjs/toolkit";
-import patientsReducer from "../home/PatientsContext";
+
+// In-Project
+import patientsReducer from "../home/PatientsSlice";
 
 const store = configureStore({
   reducer: {
@@ -8,3 +11,9 @@ const store = configureStore({
 });
 
 export default store;
+
+// get the type of [RootState] and [AppDispatch] from [store] itself
+// type of [RootState] = { patients : PatientsState }
+export type RootState = ReturnType<typeof store.getState>;
+
+export type AppDispatch = typeof store.dispatch;
