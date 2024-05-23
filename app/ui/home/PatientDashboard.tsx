@@ -9,7 +9,6 @@ import { fetchPatients, selectPatients } from "@/app/home/PatientsSlice";
 import PatientProfil from "./PatientProfil";
 
 const PatientDashboard = () => {
-    const [hasFetched, setHasFetched] = useState(false);
 
     const dispatch = useAppDispatch();
     // select ALL patients
@@ -21,13 +20,12 @@ const PatientDashboard = () => {
 
     useEffect(() => {
         // only start fetch when Promise Object is idle
-        if (!hasFetched && patientsStatus === 'idle') {
+        if (patientsStatus === 'idle') {
             // in the argument of [dispatch], [fetchPatients] is called directly
             // which means it will return an action type, as the argument of [dispatch]
             dispatch(fetchPatients());
-            setHasFetched(true);
         }
-    }, [patientsStatus, dispatch, hasFetched]);
+    }, [patientsStatus, dispatch]);
 
     if (patientsStatus === 'loading') {
         return <div>Loading...</div>;

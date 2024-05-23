@@ -42,14 +42,28 @@ const patientsContext = createSlice({
   // Sometimes a certain action needs to be triggered under a certain case
   extraReducers(builder) {
     builder
-      .addCase(fetchPatients.pending, (state, action) => {
+      .addCase(fetchPatients.pending, (state) => {
         state.status = 'loading'
       })
       .addCase(fetchPatients.fulfilled, (state, action) => {
         state.status = 'succeeded'
         // Add any fetched posts to the array
         // !!! Could add some avoid replica logic
-        state.patients = state.patients.concat(action.payload)
+        state.patients = action.payload;
+
+        // !!! The following will cause re-render, thus 2 size of result (no idea why)
+        // state.patients.concat(action.payload)
+        // state.patients.push(...action.payload);
+
+        // This one is OK
+        // state.patients = [...action.payload];
+
+        // Or return directly, it's also alright
+        // return {
+        //   ...state,
+        //   status: 'succeeded',
+        //   patients : action.payload,
+        // }
       })
       .addCase(fetchPatients.rejected, (state, action) => {
         state.status = 'failed'
