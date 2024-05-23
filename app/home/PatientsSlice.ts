@@ -52,7 +52,7 @@ const patientsContext = createSlice({
         state.patients = action.payload;
 
         // !!! The following will cause re-render, thus 2 size of result (no idea why)
-        // state.patients.concat(action.payload)
+        // state.patients = state.patients.concat(action.payload)
         // state.patients.push(...action.payload);
 
         // This one is OK

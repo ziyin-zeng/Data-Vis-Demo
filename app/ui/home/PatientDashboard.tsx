@@ -34,7 +34,7 @@ const PatientDashboard = () => {
     return (
         <div className="w-1/2 mx-auto text-center">
             {patients &&
-                patients.map((p) => <PatientProfil key={p.id} patientProfil={p} />)}
+                patients.map((p) => <PatientProfil key={p.id} patientId={p.id} />)}
         </div>
     )
 }

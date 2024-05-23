@@ -1,12 +1,17 @@
 "use client";
 
+// Next
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
+
+// In-Project
 import GlucoseChart from "../ui/detail/GlucoseChart";
+import PatientBasicInfo from "../ui/detail/PatientBasicInfo";
 
 export default function Page() {
-  const router = useRouter();
-  const { patientId } = router.query;
+  const searchParams = useSearchParams();
+  // searchParams returns a string | null, so I have to give [patientId] by defaut a value
+  const patientId = searchParams.get("pid") || "";
   return (
     <>
       <Link href="/home">
@@ -17,6 +22,7 @@ export default function Page() {
           Back to Home Page {patientId}
         </div>
       </Link>
+      <PatientBasicInfo patientId={patientId}/>
       <div
         suppressHydrationWarning
         className="w-3/4 h-screen mx-auto bg-white text-center text-black"
