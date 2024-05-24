@@ -2,7 +2,7 @@
 
 ## Tech Stack
 
-This is a personal project I use to document my own learning of [Next.js](https://nextjs.org/docs) and practice with [React](https://react.dev/reference/react), [Redux](https://redux.js.org/introduction/getting-started), [Tailwind CSS](https://tailwindcss.com/docs/installation), [Echarts](https://echarts.apache.org/handbook/zh/get-started/), [Jest](https://jestjs.io/docs/getting-started), [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/), and [webpack](https://webpack.js.org/concepts/) !
+This is a personal project I use to document my own learning of [Next.js](https://nextjs.org/docs) and practice with [React](https://react.dev/reference/react), [TypeScript](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html), [Redux](https://redux.js.org/introduction/getting-started), [Tailwind CSS](https://tailwindcss.com/docs/installation), [Echarts](https://echarts.apache.org/handbook/zh/get-started/), [Jest](https://jestjs.io/docs/getting-started), [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/), and [webpack](https://webpack.js.org/concepts/) !
 
 If necessary, I will later integrate [PostgreSQL](https://www.postgresql.org/docs/current/), [Drizzle ORM](https://orm.drizzle.team/docs/overview). For now, I will only use [mockapi.io](https://github.com/mockapi-io/docs/wiki) to provide RESTful API for this project. 
 
