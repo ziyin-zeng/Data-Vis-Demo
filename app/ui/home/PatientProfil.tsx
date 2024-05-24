@@ -25,7 +25,7 @@ const PatientProfil = (props: PatientProfilProps) => {
     <Link href={{ pathname: "/detail", query: { pid: patientId } }}>
       {patientProfil && <div
         suppressHydrationWarning
-        className="border-2 border-rose-500 my-1"
+        className="border-2 border-rose-500 my-2"
         onClick={handleClick}
       >
         {patientProfil.name}

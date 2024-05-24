@@ -22,7 +22,7 @@ const PatientBasicInfo = (props: PatientBasicInfoProps) => {
     const patient = useAppSelector(state => selectPatientById(state, patientId));
 
     if (!patient) {
-        return <div className="no-patient">Nothing's here, please go back</div>
+        return <div className="no-patient">Nothing is here, please go back</div>
     }
 
     // only do destructuring assignment after [patient] variable is checked and exists
@@ -53,7 +53,7 @@ const PatientBasicInfoText = (props: PatientBasicInfoTextProps) => {
     const { name, createdAt, studyId, gender } = props.patient;
     // [createdAt] has the ISO-8601 format : YYYY-MM-DDTHH:mm:ss.sssZ
     const timeString = new Date(createdAt).toDateString();
-    
+
     return (
         <div className="flex flex-col items-end">
             <div>Study : {studyId}</div>

@@ -38,6 +38,9 @@ const patientsContext = createSlice({
     addPatients: (state, action: PayloadAction<PatientType[]>) => {
       state.patients.push(...action.payload);
     },
+    setFetchStatus: (state, action: PayloadAction<string>) => {
+      state.status = action.payload;
+    },
   },
   // Sometimes a certain action needs to be triggered under a certain case
   extraReducers(builder) {
@@ -74,7 +77,7 @@ const patientsContext = createSlice({
 
 export default patientsContext.reducer;
 
-export const { addPatients } = patientsContext.actions;
+export const { addPatients, setFetchStatus } = patientsContext.actions;
 
 // customized Selector, tell TS that state is RootState, and could do some basic query
 export const selectPatients = (state: RootState) => state.patients.patients;
