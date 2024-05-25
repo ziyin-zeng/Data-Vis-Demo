@@ -28,7 +28,7 @@ export const fetchPatients = createAsyncThunk('patients/fetchPatients', async ()
   return response.data;
 })
 
-const patientsContext = createSlice({
+const patientSlice = createSlice({
   name: "patients",
   initialState: initialState,
   reducers: {
@@ -75,9 +75,9 @@ const patientsContext = createSlice({
   }
 });
 
-export default patientsContext.reducer;
+export default patientSlice.reducer;
 
-export const { addPatients, setFetchStatus } = patientsContext.actions;
+export const { addPatients, setFetchStatus } = patientSlice.actions;
 
 // customized Selector, tell TS that state is RootState, and could do some basic query
 export const selectPatients = (state: RootState) => state.patients.patients;

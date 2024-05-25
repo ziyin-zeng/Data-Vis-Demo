@@ -2,14 +2,14 @@ import React from "react";
 
 // Redux
 import { useAppSelector } from "@/app/store/hook";
-import { selectPatientById } from "@/app/home/PatientsSlice";
+import { selectPatientById } from "@/app/home/PatientSlice";
 
 // In-Project
 import PatientAvatar from "../PatientAvatar";
 import PatientType from "../../type/PatientType"
 
 interface PatientBasicInfoProps {
-    patientId: string,
+    patient: PatientType | undefined,
 }
 
 // To show the initial character of a name
@@ -18,8 +18,7 @@ const getFirstChar = (name: string) => {
 }
 
 const PatientBasicInfo = (props: PatientBasicInfoProps) => {
-    const { patientId } = props;
-    const patient = useAppSelector(state => selectPatientById(state, patientId));
+    const { patient } = props;
 
     if (!patient) {
         return <div className="no-patient">Nothing is here, please go back</div>

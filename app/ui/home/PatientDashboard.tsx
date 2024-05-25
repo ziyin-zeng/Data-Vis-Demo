@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 // Redux
 import { useAppDispatch, useAppSelector } from "@/app/store/hook";
-import { fetchPatients, selectPatients, setFetchStatus } from "@/app/home/PatientsSlice";
+import { fetchPatients, selectPatients, setFetchStatus } from "@/app/home/PatientSlice";
 
 // 3rd party library
 import _ from "lodash";
@@ -38,7 +38,7 @@ const PatientDashboard = () => {
     const addPatient = _.debounce(() => {
         axios.post("https://664e4e1afafad45dfadfbc58.mockapi.io/api/patients", {
             "name": "Fabien ZENG",
-            "studyId": 234,
+            "studyId": "84",
             "createdAt": "2024-05-24T04:38:18.490Z",
             "gender": "male",
           })
@@ -52,13 +52,14 @@ const PatientDashboard = () => {
     }, 2000);
 
     const handleClick = () => {
-        addPatient()
+        addPatient();
     }
 
     return (
         <div className="w-1/2 mx-auto text-center">
-            {patients &&
-                patients.map((p) => <PatientProfil key={p.id} patientId={p.id} />)}
+            {patients.length
+                ? patients.map((p) => <PatientProfil key={p.id} patientId={p.id} />)
+                : <div>There is no data for now, you might want to add some</div>}
             <button className="p-8" onClick={handleClick}>Add Patient</button>
         </div>
     )
