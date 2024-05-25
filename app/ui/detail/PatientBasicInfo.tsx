@@ -1,9 +1,5 @@
 import React from "react";
 
-// Redux
-import { useAppSelector } from "@/app/store/hook";
-import { selectPatientById } from "@/app/home/PatientSlice";
-
 // In-Project
 import PatientAvatar from "../PatientAvatar";
 import PatientType from "../../type/PatientType"

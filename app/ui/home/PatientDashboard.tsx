@@ -11,9 +11,14 @@ import axios from "axios";
 
 // In-Project
 import PatientProfil from "./PatientProfil";
+import { emptyGlucoseData } from "@/app/detail/GlucoseSlice";
 
 const PatientDashboard = () => {
     const dispatch = useAppDispatch();
+    
+    // Empty the state of glucose data after go back to home page
+    dispatch(emptyGlucoseData());
+
     // select ALL patients
     const patients = useAppSelector(selectPatients);
 

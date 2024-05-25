@@ -4,11 +4,13 @@ import { configureStore } from "@reduxjs/toolkit";
 // In-Project
 import patientsReducer from "../home/PatientSlice";
 import studiesReducer from "../detail/StudySlice";
+import glucoseReducer from "../detail/GlucoseSlice";
 
 const store = configureStore({
   reducer: {
     patients: patientsReducer,
     studies : studiesReducer,
+    glucoseData : glucoseReducer,
   },
 });
 

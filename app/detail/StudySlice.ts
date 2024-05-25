@@ -19,7 +19,7 @@ const initialState : {
 }
 
 export const fetchStudies = createAsyncThunk('studies/fetchStudies', async () => {
-    const response = await axios.get("https://664e4e1afafad45dfadfbc58.mockapi.io/api/studies")
+    const response = await axios.get("https://6651e96220f4f4c4427920ed.mockapi.io/api/studies")
     return response.data;
 });
 

@@ -6,10 +6,11 @@ import ReactEcharts from "echarts-for-react";
 
 // Redux
 import { selectStudyById, fetchStudies } from "@/app/detail/StudySlice";
+import { selectGlucoseData, fetchGlucoseData, setFetchStatus } from "@/app/detail/GlucoseSlice";
 import { useAppDispatch, useAppSelector } from "@/app/store/hook";
 
 interface GlucoseChartProps {
-  studyId : string
+  studyId: string
 }
 
 const GlucoseChart = (props: GlucoseChartProps) => {
@@ -17,23 +18,28 @@ const GlucoseChart = (props: GlucoseChartProps) => {
   const [data, setData] = useState([5, 20, 30]);
   const dispatch = useAppDispatch();
   const studiesStatus = useAppSelector(state => state.studies.status);
+  // Each time the page is reloaded, reset the status to idle, then it will cause a re-fetch
+  dispatch(setFetchStatus("idle"));
+  const glucoseDataStatus = useAppSelector(state => state.glucoseData.status);
 
   useEffect(() => {
-    if(studiesStatus === 'idle') {
+    if (studiesStatus === 'idle') {
       dispatch(fetchStudies());
     }
-  }, [studiesStatus, dispatch])
+    if (glucoseDataStatus === 'idle') {
+      dispatch(fetchGlucoseData(studyId));
+    }
+  }, [studiesStatus, glucoseDataStatus, dispatch])
 
   // get the study by id just after studies are fetched from API
   const study = useAppSelector((state) => selectStudyById(state, studyId));
 
-  if(!study) {
+  if (!study) {
     return <div>There is no study data</div>
   };
 
-  const updateData = () => {
-    setData(data.map((d) => d + Math.floor(Math.random() * 10)));
-  };
+  // only get the glucose data after make sure study exists
+  const glucoseData = useAppSelector(selectGlucoseData);
 
   const option = {
     title: {
@@ -41,23 +47,21 @@ const GlucoseChart = (props: GlucoseChartProps) => {
     },
     tooltip: {},
     xAxis: {
-      data: ["A", "B", "C"],
+      data: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],
     },
     yAxis: {},
     series: [
       {
         name: "Sales",
         type: "bar",
-        data: data,
+        data: glucoseData.map(gd => gd.glucoseValue),
       },
     ],
   };
 
   return (
     <>
-      <div>{study.id}</div>
       <ReactEcharts option={option} />
-      <button onClick={updateData}>Update</button>
     </>
   );
 };
