@@ -9,13 +9,15 @@ import { selectStudyById, fetchStudies } from "@/app/detail/StudySlice";
 import { selectGlucoseData, fetchGlucoseData, setFetchStatus } from "@/app/detail/GlucoseSlice";
 import { useAppDispatch, useAppSelector } from "@/app/store/hook";
 
+// In-Project
+import { getAllGlucoseValue, averageGlucose } from "@/app/lib/glucoseCalculation";
+
 interface GlucoseChartProps {
   studyId: string
 }
 
 const GlucoseChart = (props: GlucoseChartProps) => {
   const { studyId } = props;
-  const [data, setData] = useState([5, 20, 30]);
   const dispatch = useAppDispatch();
   const studiesStatus = useAppSelector(state => state.studies.status);
   // Each time the page is reloaded, reset the status to idle, then it will cause a re-fetch
@@ -29,13 +31,15 @@ const GlucoseChart = (props: GlucoseChartProps) => {
     if (glucoseDataStatus === 'idle') {
       dispatch(fetchGlucoseData(studyId));
     }
-  }, [studiesStatus, glucoseDataStatus, dispatch])
+  }, [studiesStatus, glucoseDataStatus, dispatch]);
 
   // get the study by id just after studies are fetched from API
   const study = useAppSelector((state) => selectStudyById(state, studyId));
 
   // get glucose data no matter if study exists
   const glucoseData = useAppSelector(selectGlucoseData);
+
+  const avgGlucose = glucoseData.length ? averageGlucose(getAllGlucoseValue(glucoseData)) : "Loading";
 
   if (!study) {
     return <div>There is no study data</div>
@@ -61,6 +65,7 @@ const GlucoseChart = (props: GlucoseChartProps) => {
 
   return (
     <>
+      <div>{avgGlucose}</div>
       <ReactEcharts option={option} />
     </>
   );
