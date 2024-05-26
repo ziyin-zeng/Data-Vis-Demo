@@ -34,12 +34,12 @@ const GlucoseChart = (props: GlucoseChartProps) => {
   // get the study by id just after studies are fetched from API
   const study = useAppSelector((state) => selectStudyById(state, studyId));
 
+  // get glucose data no matter if study exists
+  const glucoseData = useAppSelector(selectGlucoseData);
+
   if (!study) {
     return <div>There is no study data</div>
   };
-
-  // only get the glucose data after make sure study exists
-  const glucoseData = useAppSelector(selectGlucoseData);
 
   const option = {
     title: {
