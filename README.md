@@ -1,5 +1,7 @@
 # What is this project ?
 
+![Image text](./img/welcome-page.png)
+
 ## Tech Stack
 
 This is a personal project I use to document my own learning of [Next.js](https://nextjs.org/docs) and practice with [React](https://react.dev/reference/react), [TypeScript](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html), [Redux](https://redux.js.org/introduction/getting-started), [Tailwind CSS](https://tailwindcss.com/docs/installation), [Echarts](https://echarts.apache.org/handbook/zh/get-started/), [Jest](https://jestjs.io/docs/getting-started), [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/), and [webpack](https://webpack.js.org/concepts/) !
