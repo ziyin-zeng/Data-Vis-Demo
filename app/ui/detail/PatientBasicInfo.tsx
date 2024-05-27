@@ -24,7 +24,7 @@ const PatientBasicInfo = (props: PatientBasicInfoProps) => {
     const { name, gender } = patient;
 
     return (
-        <div className="w-3/4 mx-auto flex justify-between p-8">
+        <div className="flex justify-between p-8">
             <div className="flex items-center">
                 <PatientAvatar initialChar={getFirstChar(name)} />
                 <div className="ml-4 flex flex-col items-start">

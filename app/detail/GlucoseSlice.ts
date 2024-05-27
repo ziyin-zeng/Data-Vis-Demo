@@ -28,7 +28,7 @@ const glucoseSlice = createSlice({
     name: "glucoseData",
     initialState,
     reducers: {
-        setFetchStatus: (state, action: PayloadAction<string>) => {
+        setFetchGlucoseStatus: (state, action: PayloadAction<string>) => {
             state.status = action.payload;
         },
         emptyGlucoseData: (state) => {
@@ -53,6 +53,6 @@ const glucoseSlice = createSlice({
 
 export default glucoseSlice.reducer;
 
-export const { setFetchStatus, emptyGlucoseData } = glucoseSlice.actions;
+export const { setFetchGlucoseStatus, emptyGlucoseData } = glucoseSlice.actions;
 
 export const selectGlucoseData = (state: RootState) => state.glucoseData.glucoseData;

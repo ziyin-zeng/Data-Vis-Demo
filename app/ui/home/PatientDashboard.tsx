@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 // Redux
 import { useAppDispatch, useAppSelector } from "@/app/store/hook";
-import { fetchPatients, selectPatients, setFetchStatus } from "@/app/home/PatientSlice";
+import { fetchPatients, selectPatients, setFetchPatientStatus } from "@/app/home/PatientSlice";
 
 // 3rd party library
 import _ from "lodash";
@@ -49,7 +49,7 @@ const PatientDashboard = () => {
           })
         .then(response => {
             // set fetch status to 'idle', in order to cause [patientsStatus] change, thus cause useEffect to re-get from API & re-render
-            dispatch(setFetchStatus('idle'));
+            dispatch(setFetchPatientStatus('idle'));
         })
         .catch(error => {
             console.error(error);

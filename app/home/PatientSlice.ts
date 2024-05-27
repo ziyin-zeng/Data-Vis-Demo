@@ -38,7 +38,7 @@ const patientSlice = createSlice({
     addPatients: (state, action: PayloadAction<PatientType[]>) => {
       state.patients.push(...action.payload);
     },
-    setFetchStatus: (state, action: PayloadAction<string>) => {
+    setFetchPatientStatus: (state, action: PayloadAction<string>) => {
       state.status = action.payload;
     },
   },
@@ -77,7 +77,7 @@ const patientSlice = createSlice({
 
 export default patientSlice.reducer;
 
-export const { addPatients, setFetchStatus } = patientSlice.actions;
+export const { addPatients, setFetchPatientStatus } = patientSlice.actions;
 
 // customized Selector, tell TS that state is RootState, and could do some basic query
 export const selectPatients = (state: RootState) => state.patients.patients;
