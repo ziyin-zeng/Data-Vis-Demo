@@ -67,10 +67,7 @@ export default function Page() {
       </Link>
       <PatientBasicInfo patient={patient} />
       <GlucoseAnalysis glucoseData={glucoseData} />
-      <div
-        suppressHydrationWarning
-        className="mx-auto bg-white text-black p-8"
-      >
+      <div>
         <GlucoseChart study={study} glucoseData={glucoseData} />
       </div>
     </div>

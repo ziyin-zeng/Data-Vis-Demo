@@ -10,7 +10,7 @@ export default function Home() {
       <div className="relative mt-[-120px] text-9xl/[180px] text-gray-700 z-10 animate-downAndUpEaseOut group-hover:animate-downAndUpEaseIn">Visualization</div>
       {/* start with opacity 0, since no hover is triggered */}
       {/* when hover is triggered, delay for a while and show the link */}
-      <div className="mt-[30px] w-full flex flex-row justify-center mx-auto text-gray-500 transition opacity-0 ease-in-out delay-500 duration-500 group-hover:opacity-100">
+      <div className="mt-[30px] w-full flex flex-row justify-center items-center mx-auto text-gray-500 transition opacity-0 ease-in-out delay-500 duration-500 group-hover:opacity-100">
         <Image
           src="/circle-right-regular.svg"
           alt="Redirect icon"

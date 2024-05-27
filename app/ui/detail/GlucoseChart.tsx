@@ -1,5 +1,6 @@
 // React
 import React from "react";
+import Typography from '@mui/material/Typography';
 
 // 3rd party library
 import ReactEcharts from "echarts-for-react";
@@ -9,7 +10,7 @@ import GlucoseDataType from "@/app/type/GlucoseDataType";
 import StudyType from "@/app/type/StudyType";
 
 interface GlucoseChartProps {
-  study : StudyType;
+  study: StudyType;
   glucoseData: GlucoseDataType[];
 }
 
@@ -39,9 +40,14 @@ const GlucoseChart = (props: GlucoseChartProps) => {
   };
 
   return (
-    <>
-      <ReactEcharts option={option} />
-    </>
+    <div className="text-start ">
+      <Typography variant="h4" gutterBottom>
+        Continous Glucose Monitoring History
+      </Typography>
+      <div className="p-8 bg-white">
+        <ReactEcharts option={option} />
+      </div>
+    </div>
   );
 };
 

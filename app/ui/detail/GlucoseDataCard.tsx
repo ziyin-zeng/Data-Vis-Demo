@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import ExplainationPopup from '../ExplainationPopup';
 
 interface ContentProps {
-    value: number;
+    value: string;
     text: string;
     type: string;
 }

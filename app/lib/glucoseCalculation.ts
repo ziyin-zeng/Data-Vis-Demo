@@ -18,8 +18,20 @@ export const getAllGlucoseValue = (glucoseDataList: GlucoseDataType[]): number[]
  * @param: {glucoseList: number[]}
  * @returns: {number}
  */
-export const averageGlucose = (glucoseList: number[]): number => { 
-    return glucoseList.reduce((sum, curr) => sum + curr) / glucoseList.length;
+export const averageGlucose = (glucoseList: number[]): string => { 
+    if(!glucoseList.length) return '0';
+    return (glucoseList.reduce((sum, curr) => sum + curr) / glucoseList.length).toFixed(1);
 };
 
-
+/**
+ * @author: Ziyin ZENG
+ * @description: calculate TIR
+ *
+ * @param: {glucoseList: number[]}
+ * @returns: {number}
+ */
+export const tirGlucose = (glucoseList: number[]): string => {
+    if(!glucoseList.length) return '0.0%';
+    const inRangeValueList = glucoseList.filter(v => v >= 5 && v <= 7);
+    return (inRangeValueList.length / glucoseList.length * 100).toFixed(1) + '%';
+}
