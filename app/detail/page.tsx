@@ -67,9 +67,7 @@ export default function Page() {
       </Link>
       <PatientBasicInfo patient={patient} />
       <GlucoseAnalysis glucoseData={glucoseData} />
-      <div>
-        <GlucoseChart study={study} glucoseData={glucoseData} />
-      </div>
+      <GlucoseChart study={study} glucoseData={glucoseData} />
     </div>
     // </Suspense>
   );

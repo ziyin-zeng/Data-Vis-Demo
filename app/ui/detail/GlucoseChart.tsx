@@ -11,7 +11,7 @@ import ReactEcharts from "echarts-for-react";
 // In-Project
 import GlucoseDataType from "@/app/type/GlucoseDataType";
 import StudyType from "@/app/type/StudyType";
-import { getAllGlucoseValue, getAllGlucoseValueAndDate } from "@/app/lib/glucoseCalculation";
+import { getAllGlucoseValueAndDate } from "@/app/lib/glucoseCalculation";
 
 interface GlucoseChartProps {
   study: StudyType;
@@ -20,9 +20,8 @@ interface GlucoseChartProps {
 
 const GlucoseChart = (props: GlucoseChartProps) => {
   const { study, glucoseData } = props;
-  console.log(glucoseData);
 
-  let data = getAllGlucoseValueAndDate(glucoseData);
+  let data = getAllGlucoseValueAndDate(glucoseData); 
   // data.sort((a, b) => {
   //   return a[0] - b[0]
   // })
@@ -124,7 +123,7 @@ const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))({
   [`& .${tooltipClasses.tooltip}`]: {
-    maxWidth: 500,
+    maxWidth: 600,
   },
 });
 

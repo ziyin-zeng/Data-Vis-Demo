@@ -19,7 +19,7 @@ export const getAllGlucoseValue = (glucoseDataList: GlucoseDataType[]): number[]
  * @returns: {number[][]}
  */
 export const getAllGlucoseValueAndDate = (glucoseDataList: GlucoseDataType[]): number[][] => {
-    return glucoseDataList.map(gd => [+gd.createdAt, +gd.glucose_value]);     // this '+' before gd.glucoseValue is to translate string into number
+    return glucoseDataList.map(gd => [+gd.createdAt, gd.glucose_value]);     // this '+' before gd.glucoseValue is to translate string into number
 }
 
 /**
