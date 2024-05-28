@@ -2,11 +2,17 @@
 
 ![Image text](./img/welcome-page.png)
 
+![Image text](./img/detail-page.png)
+
+![Image text](./img/realtime.png)
+
+![Image text](./img/continous.png)
+
 ## Tech Stack
 
-This is a personal project I use to document my own learning of [Next.js](https://nextjs.org/docs) and practice with [React](https://react.dev/reference/react), [TypeScript](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html), [Redux](https://redux.js.org/introduction/getting-started), [Tailwind CSS](https://tailwindcss.com/docs/installation), [Echarts](https://echarts.apache.org/handbook/zh/get-started/), [Jest](https://jestjs.io/docs/getting-started), [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/), and [webpack](https://webpack.js.org/concepts/) !
+This is a personal project I use to document my own learning of [Next.js](https://nextjs.org/docs) & AWS services ([API Gateway](https://aws.amazon.com/api-gateway/?nc2=type_a), [Lambda](https://aws.amazon.com/lambda/?nc2=type_a), [DynamoDB](https://aws.amazon.com/dynamodb/?nc2=type_a)) and practice with [React](https://react.dev/reference/react), [TypeScript](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html), [Redux](https://redux.js.org/introduction/getting-started), [Tailwind CSS](https://tailwindcss.com/docs/installation), [Echarts](https://echarts.apache.org/handbook/zh/get-started/), [Jest](https://jestjs.io/docs/getting-started), [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/), and [webpack](https://webpack.js.org/concepts/) !
 
-If necessary, I will later integrate [PostgreSQL](https://www.postgresql.org/docs/current/), [Drizzle ORM](https://orm.drizzle.team/docs/overview). For now, I will only use [mockapi.io](https://github.com/mockapi-io/docs/wiki) to provide RESTful API for this project. 
+If necessary, I will later integrate [PostgreSQL](https://www.postgresql.org/docs/current/), [Drizzle ORM](https://orm.drizzle.team/docs/overview). For now, I will only use [mockapi.io](https://github.com/mockapi-io/docs/wiki) and all the AWS services mentioned above to provide RESTful API for this project. 
 
 ## Importance of code annotation
 

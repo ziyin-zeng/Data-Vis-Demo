@@ -12,6 +12,7 @@ import axios from "axios";
 // In-Project
 import PatientProfil from "./PatientProfil";
 import { emptyGlucoseData } from "@/app/detail/GlucoseSlice";
+import { mockGlucose } from "@/app/lib/glucoseCalculation";
 
 const PatientDashboard = () => {
     const dispatch = useAppDispatch();
@@ -56,8 +57,25 @@ const PatientDashboard = () => {
         });
     }, 2000);
 
+    const db = mockGlucose();
+    // Use lodash, built-in function [debounce]
+    const addToAWS = _.debounce(() => {
+        axios.put("https://zl0z5uram5.execute-api.eu-west-3.amazonaws.com/items", db, {
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          })
+        .then(response => {
+            // set fetch status to 'idle', in order to cause [patientsStatus] change, thus cause useEffect to re-get from API & re-render
+            dispatch(setFetchPatientStatus('idle'));
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }, 2000);
+
     const handleClick = () => {
-        addPatient();
+        addToAWS();
     }
 
     return (

@@ -20,7 +20,7 @@ const initialState: {
 
 export const fetchGlucoseData = createAsyncThunk('glucoseData/fetchGlucoseData', async (studyId: string) => {
     // Each study has a set of glucose data
-    const response = await axios.get(`https://6651e96220f4f4c4427920ed.mockapi.io/api/studies/${studyId}/glucoseData`);
+    const response = await axios.get(`https://zl0z5uram5.execute-api.eu-west-3.amazonaws.com/items`);
     return response.data;
 });
 
