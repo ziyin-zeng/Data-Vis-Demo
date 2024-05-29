@@ -18,9 +18,9 @@ const initialState: {
     glucoseData: [],
 }
 
-export const fetchGlucoseData = createAsyncThunk('glucoseData/fetchGlucoseData', async (studyId: string) => {
+export const fetchGlucoseData = createAsyncThunk('glucoseData/fetchGlucoseData', async (studyId : number) => {
     // Each study has a set of glucose data
-    const response = await axios.get(`https://zl0z5uram5.execute-api.eu-west-3.amazonaws.com/items`);
+    const response = await axios.get(`https://e3gx8ahiw2.execute-api.eu-west-3.amazonaws.com/glucoseData/study/${studyId}`);
     return response.data;
 });
 

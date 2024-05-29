@@ -42,12 +42,58 @@ const PatientDashboard = () => {
 
     // Use lodash, built-in function [debounce]
     const addPatient = _.debounce(() => {
-        axios.post("https://664e4e1afafad45dfadfbc58.mockapi.io/api/patients", {
-            "name": "Fabien ZENG",
-            "studyId": "84",
-            "createdAt": "2024-05-24T04:38:18.490Z",
-            "gender": "male",
-          })
+        axios.put("https://5kzf0lo9ee.execute-api.eu-west-3.amazonaws.com/study", [
+            {
+              "createdAt": "2024-05-25T00:12:05.747Z",
+              "id": 1,
+                "patientId" : 1
+            },
+            {
+              "createdAt": "2024-05-25T17:30:21.805Z",
+              "id": 2,
+              "patientId" : 1
+            },
+            {
+              "createdAt": "2024-05-25T04:16:01.176Z",
+              "id": 3,
+              "patientId" : 2
+            },
+            {
+              "createdAt": "2024-05-24T23:26:31.379Z",
+              "id": 4,
+              "patientId" : 2
+            },
+            {
+              "createdAt": "2024-05-25T15:04:17.738Z",
+              "id": 5,
+              "patientId" : 3
+            },
+            {
+              "createdAt": "2024-05-24T22:53:41.070Z",
+              "id": 6,
+              "patientId" : 3
+            },
+            {
+              "createdAt": "2024-05-25T02:42:26.653Z",
+              "id": 7,
+              "patientId" : 4
+            },
+            {
+              "createdAt": "2024-05-24T19:26:02.154Z",
+              "id": 8,
+              "patientId" : 5
+            },
+            {
+              "createdAt": "2024-05-25T11:51:24.203Z",
+              "id": 9,
+              "patientId" : 6
+            },
+            {
+              "createdAt": "2024-05-25T17:40:19.339Z",
+              "id": 10,
+              "patientId" : 7
+            }
+          ], {headers : {'Content-Type': 'application/json'}})
         .then(response => {
             // set fetch status to 'idle', in order to cause [patientsStatus] change, thus cause useEffect to re-get from API & re-render
             dispatch(setFetchPatientStatus('idle'));
@@ -60,7 +106,7 @@ const PatientDashboard = () => {
     // const db = mockGlucose();
     // // Use lodash, built-in function [debounce]
     // const addToAWS = _.debounce(() => {
-    //     axios.put("https://zl0z5uram5.execute-api.eu-west-3.amazonaws.com/items", db, {
+    //     axios.put("https://e3gx8ahiw2.execute-api.eu-west-3.amazonaws.com/glucoseData", db, {
     //         headers: {
     //           'Content-Type': 'application/json',
     //         }
@@ -75,7 +121,7 @@ const PatientDashboard = () => {
     // }, 2000);
 
     const handleClick = () => {
-        // addToAWS();
+      // addToAWS();
     }
 
     return (

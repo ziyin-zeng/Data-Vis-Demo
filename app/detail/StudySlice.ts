@@ -1,5 +1,5 @@
 // Redux
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
 
 // 3rd party library
@@ -18,8 +18,8 @@ const initialState : {
     error : undefined
 }
 
-export const fetchStudies = createAsyncThunk('studies/fetchStudies', async () => {
-    const response = await axios.get("https://6651e96220f4f4c4427920ed.mockapi.io/api/studies")
+export const fetchStudies = createAsyncThunk('studies/fetchStudies', async (patientId: number) => {
+    const response = await axios.get(`https://5kzf0lo9ee.execute-api.eu-west-3.amazonaws.com/study/patient/${patientId}`)
     return response.data;
 });
 
@@ -27,7 +27,9 @@ const studySlice = createSlice({
     name : "studies",
     initialState,
     reducers : {
-
+        setFetchStudyStatus: (state, action: PayloadAction<string>) => {
+            state.status = action.payload;
+        }
     },
     extraReducers(builder) {
         builder
@@ -47,5 +49,7 @@ const studySlice = createSlice({
 
 export default studySlice.reducer;
 
+export const { setFetchStudyStatus } = studySlice.actions;
+
 export const selectStudies = (state : RootState) => state.studies.studies;
-export const selectStudyById = (state : RootState, studyId : string) => state.studies.studies.find(s => s.id === studyId);
+export const selectStudyById = (state : RootState, studyId : number) => state.studies.studies.find(s => s.id === studyId);

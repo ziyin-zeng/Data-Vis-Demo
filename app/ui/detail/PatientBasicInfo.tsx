@@ -32,7 +32,7 @@ const PatientBasicInfo = (props: PatientBasicInfoProps) => {
                     <div>{gender === "male" ? "Male" : "Female"}</div>
                 </div>
             </div>
-            <PatientBasicInfoText patient={patient} />
+            <PatientBasicInfoText patient={patient}/>
         </div>
     )
 }
@@ -41,17 +41,18 @@ export default PatientBasicInfo;
 
 // This component is only for [PatientBasicInfo]
 interface PatientBasicInfoTextProps {
-    patient: PatientType;
+    patient: PatientType,
 }
 
 const PatientBasicInfoText = (props: PatientBasicInfoTextProps) => {
-    const { name, createdAt, studyId, gender } = props.patient;
+    const { createdAt } = props.patient;
+
     // [createdAt] has the ISO-8601 format : YYYY-MM-DDTHH:mm:ss.sssZ
     const timeString = new Date(createdAt).toDateString();
 
     return (
         <div className="flex flex-col items-end">
-            <div>Study : {studyId}</div>
+            <div>Study</div>
             <div>Created at {timeString}</div>
         </div>
     )

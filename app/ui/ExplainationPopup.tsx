@@ -99,7 +99,7 @@ export default function ExplainationPopup(props: ExplainationPopupProps) {
                     </div>
                 </DialogContent>
                 <DialogActions>
-                    <button onClick={handleClose}>OK, I get it</button>
+                    <button onClick={handleClose}>OK, got it</button>
                 </DialogActions>
             </BootstrapDialog>
         </React.Fragment>

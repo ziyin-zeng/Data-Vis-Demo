@@ -1,7 +1,7 @@
 "use client";
 
 // React
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { Suspense } from "react";
 
 // Next
@@ -11,7 +11,7 @@ import { useSearchParams } from "next/navigation";
 // Redux
 import { useAppDispatch, useAppSelector } from "../store/hook";
 import { selectPatientById } from "../home/PatientSlice";
-import { selectStudyById, fetchStudies } from "@/app/detail/StudySlice";
+import { fetchStudies, setFetchStudyStatus, selectStudies } from "@/app/detail/StudySlice";
 import { selectGlucoseData, fetchGlucoseData, setFetchGlucoseStatus } from "@/app/detail/GlucoseSlice";
 
 // In-Project
@@ -20,31 +20,24 @@ import PatientBasicInfo from "../ui/detail/PatientBasicInfo";
 import GlucoseAnalysis from "../ui/detail/GlucoseAnalysis";
 
 export default function Page() {
+  // this is for multiple study scenario, user could choose between studyIds
+  const [studyId, setStudyId] = useState<number>(0);
+
   const searchParams = useSearchParams();
-  // searchParams returns a string | null, so I have to give [patientId] by defaut a value
-  const patientId = searchParams.get("pid") || "";
+  // searchParams.get returns a string | null, since it's unpredictable
+  const patientId = searchParams.get("pid");
+
+  if(!patientId) {
+    return <div>Invalid URL, please provide patientId</div>
+  }
+
   // use the [patientId] from URL to select patient object
-  const patient = useAppSelector((state) => selectPatientById(state, patientId));
-  // get the [studyId] from the patient object
-  const studyId = patient ? patient.studyId : "";
+  const patient = useAppSelector((state) => selectPatientById(state, +patientId));
 
   const dispatch = useAppDispatch();
-  const studiesStatus = useAppSelector(state => state.studies.status);
-  // Each time the page is reloaded, reset the status to idle, then it will cause a re-fetch
-  dispatch(setFetchGlucoseStatus("idle"));
-  const glucoseDataStatus = useAppSelector(state => state.glucoseData.status);
-
-  useEffect(() => {
-    if (studiesStatus === 'idle') {
-      dispatch(fetchStudies());
-    }
-    if (glucoseDataStatus === 'idle') {
-      dispatch(fetchGlucoseData(studyId));
-    }
-  }, [studiesStatus, glucoseDataStatus, dispatch]);
 
   // get the study by id just after studies are fetched from API
-  const study = useAppSelector((state) => selectStudyById(state, studyId));
+  const study = useAppSelector(selectStudies);
 
   // get glucose data no matter if study exists
   const glucoseData = useAppSelector(selectGlucoseData);
@@ -52,6 +45,25 @@ export default function Page() {
   if (!study) {
     return <div>There is no study data</div>
   };
+
+  // Each time the page is reloaded, reset the status to idle, then it will cause a re-fetch
+  dispatch(setFetchGlucoseStatus('idle'));
+  dispatch(setFetchStudyStatus('idle'));
+  const studiesStatus = useAppSelector(state => state.studies.status);
+  const glucoseDataStatus = useAppSelector(state => state.glucoseData.status);
+
+  useEffect(() => {
+    if (studiesStatus === 'idle') {
+      dispatch(fetchStudies(+patientId));
+    }
+    if (glucoseDataStatus === 'idle') {
+      dispatch(fetchGlucoseData(studyId));
+    }
+  }, [studiesStatus, glucoseDataStatus, studyId, dispatch]);
+
+  const handleClick = (id: number) => {
+    setStudyId(id);
+  }
 
   return (
     // When I try to build, an error comes up tell me to wrap useSearchParams() with Supense boudary
@@ -65,9 +77,10 @@ export default function Page() {
           Back to Home Page
         </div>
       </Link>
-      <PatientBasicInfo patient={patient} />
-      <GlucoseAnalysis glucoseData={glucoseData} />
-      <GlucoseChart study={study} glucoseData={glucoseData} />
+      {patient ? <PatientBasicInfo patient={patient}/> : <div>There is no patient data</div>}
+      <div>Study : {study.map(s => <button key={s.id} onClick={() => handleClick(s.id)}>{s.id + "~"}</button>)}</div>
+      {glucoseData ? <GlucoseAnalysis glucoseData={glucoseData} /> : <div>There is no glucose data</div>}
+      {glucoseData ? <GlucoseChart glucoseData={glucoseData} /> : <div>There is no glucose data</div>}
     </div>
     // </Suspense>
   );

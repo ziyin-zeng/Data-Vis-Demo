@@ -10,25 +10,16 @@ import ReactEcharts from "echarts-for-react";
 
 // In-Project
 import GlucoseDataType from "@/app/type/GlucoseDataType";
-import StudyType from "@/app/type/StudyType";
 import { getAllGlucoseValueAndDate } from "@/app/lib/glucoseCalculation";
 
 interface GlucoseChartProps {
-  study: StudyType;
   glucoseData: GlucoseDataType[];
 }
 
 const GlucoseChart = (props: GlucoseChartProps) => {
-  const { study, glucoseData } = props;
+  const { glucoseData } = props;
 
   let data = getAllGlucoseValueAndDate(glucoseData); 
-  // data.sort((a, b) => {
-  //   return a[0] - b[0]
-  // })
-
-  if (!study) {
-    return <div>There is no study data</div>
-  };
 
   // let base = +new Date(2024, 4, 28);
   // let fiveMin = 5 * 60 * 1000;
@@ -79,11 +70,11 @@ const GlucoseChart = (props: GlucoseChartProps) => {
       {
         type: 'inside',
         start: 0,
-        end: 3
+        end: 10
       },
       {
         start: 0,
-        end: 3
+        end: 10
       }
     ],
     series: [

@@ -8,7 +8,7 @@ import GlucoseDataType from "../type/GlucoseDataType";
  * @returns: {number[]}
  */
 export const getAllGlucoseValue = (glucoseDataList: GlucoseDataType[]): number[] => {
-    return glucoseDataList.map(gd => +gd.glucose_value);     // this '+' before gd.glucoseValue is to translate string into number
+    return glucoseDataList.map(gd => +gd.glucoseValue);     // this '+' before gd.glucoseValue is to translate string into number
 }
 
 /**
@@ -19,7 +19,7 @@ export const getAllGlucoseValue = (glucoseDataList: GlucoseDataType[]): number[]
  * @returns: {number[][]}
  */
 export const getAllGlucoseValueAndDate = (glucoseDataList: GlucoseDataType[]): number[][] => {
-    return glucoseDataList.map(gd => [+gd.createdAt, gd.glucose_value]);     // this '+' before gd.glucoseValue is to translate string into number
+    return glucoseDataList.map(gd => [+gd.createdAt, gd.glucoseValue]);     // this '+' before gd.glucoseValue is to translate string into number
 }
 
 /**
@@ -43,7 +43,7 @@ export const averageGlucose = (glucoseList: number[]): string => {
  */
 export const tirGlucose = (glucoseList: number[]): string => {
     if (!glucoseList.length) return '0.0%';
-    const inRangeValueList = glucoseList.filter(v => v >= 5 && v <= 7);
+    const inRangeValueList = glucoseList.filter(v => v >= 4 && v <= 8);
     return (inRangeValueList.length / glucoseList.length * 100).toFixed(1) + '%';
 }
 
@@ -61,48 +61,48 @@ export const mockGlucose = () => {
     let data: [{
         id: number,
         createdAt: number,
-        glucose_value: number | null,
-        study_id: string
+        glucoseValue: number | null,
+        studyId: number
     }] = [{
         id: 1,
         createdAt: base,
-        glucose_value: 5.2,
-        study_id: "1",
+        glucoseValue: 5.9,
+        studyId: 2,
     }];
 
     for (let i = 1; i < 5000; i++) {
         let now = +new Date(base += fiveMin);
 
-        let lastData = (data[i - 1].glucose_value ? data[i - 1].glucose_value : data[i - 2].glucose_value) as number;
+        let lastData = (data[i - 1].glucoseValue ? data[i - 1].glucoseValue : data[i - 2].glucoseValue) as number;
         let nextData = +((Math.random() - 0.5) * 2 + lastData).toFixed(1);
 
         if (nextData >= 15) {
             data.push({
                 id: i+1,
                 createdAt: now,
-                glucose_value: 15,
-                study_id: "1"
+                glucoseValue: 15,
+                studyId: 2
             });
         } else if (nextData <= 3 || !nextData) {
             data.push({
                 id: i+1,
                 createdAt: now,
-                glucose_value: 3,
-                study_id: "1"
+                glucoseValue: 3,
+                studyId: 2
             });
         } else if (Math.round(Math.random() * 100) > 95) {
             data.push({
                 id: i+1,
                 createdAt: now,
-                glucose_value: null,
-                study_id: "1"
+                glucoseValue: null,
+                studyId: 2
             });
         } else {
             data.push({
                 id: i+1,
                 createdAt: now,
-                glucose_value: nextData,
-                study_id: "1"
+                glucoseValue: nextData,
+                studyId: 2
             });
         }
     }

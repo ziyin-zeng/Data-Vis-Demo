@@ -8,7 +8,7 @@ import { useAppSelector } from "@/app/store/hook";
 import { selectPatientById } from "@/app/home/PatientSlice";
 
 interface PatientProfilProps {
-  patientId: string;
+  patientId: number;
 }
 
 const PatientProfil = (props: PatientProfilProps) => {

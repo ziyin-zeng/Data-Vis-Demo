@@ -24,7 +24,7 @@ const initialState: {
 // Function [createAsyncThunk] takes in the name of Async action, which is in this case 'patients/fetchPatients'
 // Function [createAsyncThunk] takes in a callback arrow function, which fetchs data from a given API and returns a Promise Object
 export const fetchPatients = createAsyncThunk('patients/fetchPatients', async () => {
-  const response = await axios.get("https://664e4e1afafad45dfadfbc58.mockapi.io/api/patients");
+  const response = await axios.get("https://gsqhu30ux2.execute-api.eu-west-3.amazonaws.com/patient");
   return response.data;
 })
 
@@ -81,4 +81,4 @@ export const { addPatients, setFetchPatientStatus } = patientSlice.actions;
 
 // customized Selector, tell TS that state is RootState, and could do some basic query
 export const selectPatients = (state: RootState) => state.patients.patients;
-export const selectPatientById = (state: RootState, patientId: string) => state.patients.patients.find(p => p.id === patientId);
+export const selectPatientById = (state: RootState, patientId: number | null) => state.patients.patients.find(p => p.id === patientId);

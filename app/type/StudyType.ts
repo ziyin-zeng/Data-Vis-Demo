@@ -1,7 +1,8 @@
 // Always should be updated after the API is changed 
-interface StudySlice {
-    id : string,
+interface StudyType {
+    id : number,
     createdAt : string,
+    patientId : number,
 };
 
-export default StudySlice;
+export default StudyType;

@@ -1,8 +1,7 @@
 // Always should be updated after the API is changed 
 interface PatientType {
-  id: string;
+  id: number;
   name: string;
-  studyId: string;
   gender: string;
   createdAt: string;
 }
