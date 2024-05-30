@@ -68,7 +68,7 @@ export default function Page() {
   return (
     // When I try to build, an error comes up tell me to wrap useSearchParams() with Supense boudary
     // <Suspense>
-    <div className="w-3/4 mx-auto text-center">
+    <div className="w-full mx-auto text-center md:w-3/4">
       <Link href="/home">
         <div
           suppressHydrationWarning

@@ -64,7 +64,16 @@ const GlucoseChart = (props: GlucoseChartProps) => {
     },
     yAxis: {
       type: 'value',
-      boundaryGap: [0, '100%']
+      boundaryGap: [0, '30%'],
+      splitLine: {
+        show: false
+      },
+      splitArea: {
+        show: true,
+        areaStyle : {
+          color: ['rgba(0,0,0,0.3)','rgba(200,200,200,0.3)']
+        }
+      }
     },
     dataZoom: [
       {
@@ -90,7 +99,7 @@ const GlucoseChart = (props: GlucoseChartProps) => {
 
   return (
     <div className="text-start">
-      <div className="flex flex-row justify-between items-end">
+      <div className="p-4 flex flex-col items-start justify-between xl:flex-row xl:items-end xl:p-8">
         <Typography variant="h4" gutterBottom>
           Continous Glucose Monitoring History
         </Typography>
@@ -100,7 +109,7 @@ const GlucoseChart = (props: GlucoseChartProps) => {
           </Typography>
         </CustomWidthTooltip>
       </div>
-      <div className="p-8 bg-white">
+      <div className="p-4 lg:p-10">
         <ReactEcharts option={option} />
       </div>
     </div>

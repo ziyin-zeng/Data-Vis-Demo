@@ -24,10 +24,10 @@ const PatientBasicInfo = (props: PatientBasicInfoProps) => {
     const { name, gender } = patient;
 
     return (
-        <div className="flex justify-between p-8">
+        <div className="flex flex-col p-4 lg:flex-row lg:justify-between lg:p-8">
             <div className="flex items-center">
                 <PatientAvatar initialChar={getFirstChar(name)} />
-                <div className="ml-4 flex flex-col items-start">
+                <div className="ml-2 flex flex-col items-start lg:ml-4">
                     <div className="text-xl">{name}</div>
                     <div>{gender === "male" ? "Male" : "Female"}</div>
                 </div>

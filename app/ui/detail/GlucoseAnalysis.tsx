@@ -29,7 +29,7 @@ export default function GlucoseAnalysis(props: GlucoseAnalysisProps) {
 
     return (
         <React.Fragment>
-            <div className='flex flex-row justify-between items-end'>
+            <div className='text-start p-4 flex flex-col items-start justify-between xl:flex-row xl:items-end xl:p-8'>
                 <Typography variant="h4" gutterBottom>
                     Glucose Analysis Summary for study {studyId}
                 </Typography>
@@ -39,14 +39,14 @@ export default function GlucoseAnalysis(props: GlucoseAnalysisProps) {
                     </Typography>
                 </CustomWidthTooltip>
             </div>
-            <div className='w-full flex flex-row justify-between p-8'>
-                <Box sx={{ minWidth: 350 }}>
+            <div className='p-4 flex flex-col items-center lg:justify-between lg:flex-row lg:p-10'>
+                <Box className="w-[80%] lg:min-w-[25%] lg:max-w-[33%]">
                     <Card variant="outlined"><GlucoseDataCard value={'' + glucoseValue[glucoseValue.length - 1]} text="Latest glucose data" type="latest" /></Card>
                 </Box>
-                <Box sx={{ minWidth: 350 }}>
+                <Box className="w-[80%] lg:min-w-[25%] lg:max-w-[33%]">
                     <Card variant="outlined"><GlucoseDataCard value={avgGlucose} text="Average glucose in past 24h" type="average" /></Card>
                 </Box>
-                <Box sx={{ minWidth: 350 }}>
+                <Box className="w-[80%] lg:min-w-[25%] lg:max-w-[33%]">
                     <Card variant="outlined"><GlucoseDataCard value={tir} text="Time in range (TIR)" type="TIR" /></Card>
                 </Box>
             </div>
