@@ -81,7 +81,7 @@ export default function ExplainationPopup(props: ExplainationPopupProps) {
 
     return (
         <React.Fragment>
-            <button onClick={handleClickOpen}>Learn More</button>
+            <button className='text-sky-600 p-2' onClick={handleClickOpen}>Learn More</button>
             <BootstrapDialog
                 onClose={handleClose}
                 aria-labelledby="customized-dialog-title"
@@ -99,7 +99,7 @@ export default function ExplainationPopup(props: ExplainationPopupProps) {
                     </div>
                 </DialogContent>
                 <DialogActions>
-                    <button onClick={handleClose}>OK, got it</button>
+                    <button className='text-sky-600 p-2' onClick={handleClose}>OK, got it</button>
                 </DialogActions>
             </BootstrapDialog>
         </React.Fragment>
