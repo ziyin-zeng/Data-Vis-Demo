@@ -22,7 +22,7 @@ const GlucoseDataCard = (props: ContentProps) => {
                     {text}
                 </Typography>
                 <Typography sx={{ fontSize: 34 }} color="text.secondary">
-                    {value}
+                    {value} {type === 'TIR' ? "%" : "mmol/L"}
                 </Typography>
             </CardContent>
             <ExplainationPopup type={type}/>

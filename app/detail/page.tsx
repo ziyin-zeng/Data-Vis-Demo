@@ -89,7 +89,7 @@ export default function Page() {
         </div>
       </Link>
       {patient ? <PatientBasicInfo patient={patient}/> : <div>There is no patient data</div>}
-      <div className='text-start pl-8'>{study.map(s => <button className={getButtonTailwindStyleById(s.id)} key={s.id} onClick={() => handleClick(s.id)}>{"Study " + s.id}</button>)}</div>
+      <div className='text-start pl-8'>{study.map(s => <button className={getButtonTailwindStyleById(s.id)} key={s.id} onClick={() => handleClick(s.id)}>{"Study No." + s.id}</button>)}</div>
       {glucoseData && studyId ? <GlucoseAnalysis glucoseData={glucoseData} /> : <div>There is no glucose data</div>}
       {glucoseData && studyId ? <GlucoseChart glucoseData={glucoseData} /> : <div>There is no glucose data</div>}
     </div>

@@ -44,7 +44,7 @@ export const averageGlucose = (glucoseList: number[]): string => {
 export const tirGlucose = (glucoseList: number[]): string => {
     if (!glucoseList.length) return '0.0%';
     const inRangeValueList = glucoseList.filter(v => v >= 4 && v <= 8);
-    return (inRangeValueList.length / glucoseList.length * 100).toFixed(1) + '%';
+    return (inRangeValueList.length / glucoseList.length * 100).toFixed(1);
 }
 
 /**
