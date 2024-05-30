@@ -79,7 +79,7 @@ export default function Page() {
       </Link>
       {patient ? <PatientBasicInfo patient={patient}/> : <div>There is no patient data</div>}
       <div>Study : {study.map(s => <button key={s.id} onClick={() => handleClick(s.id)}>{s.id + "~"}</button>)}</div>
-      {glucoseData ? <GlucoseAnalysis glucoseData={glucoseData} /> : <div>There is no glucose data</div>}
+      {glucoseData ? <GlucoseAnalysis glucoseData={glucoseData} studyId={studyId} /> : <div>There is no glucose data</div>}
       {glucoseData ? <GlucoseChart glucoseData={glucoseData} /> : <div>There is no glucose data</div>}
     </div>
     // </Suspense>
