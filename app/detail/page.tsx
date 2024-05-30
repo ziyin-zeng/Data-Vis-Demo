@@ -58,7 +58,7 @@ export default function Page() {
       dispatch(fetchStudies(+patientId))
         .then(response => {
           if(!isStudyFetched) {
-            setStudyId(response.payload[0].id)
+            setStudyId(response.payload[0]?.id)
             setIsStudyFetched(true);
           }
         });
@@ -87,7 +87,7 @@ export default function Page() {
       {patient ? <PatientBasicInfo patient={patient}/> : <div>There is no patient data</div>}
       <div>Study : {study.map(s => <button key={s.id} onClick={() => handleClick(s.id)}>{s.id + "~"}</button>)}</div>
       {glucoseData && studyId ? <GlucoseAnalysis glucoseData={glucoseData} studyId={studyId} /> : <div>There is no glucose data</div>}
-      {glucoseData ? <GlucoseChart glucoseData={glucoseData} /> : <div>There is no glucose data</div>}
+      {glucoseData && studyId ? <GlucoseChart glucoseData={glucoseData} /> : <div>There is no glucose data</div>}
     </div>
     // </Suspense>
   );
