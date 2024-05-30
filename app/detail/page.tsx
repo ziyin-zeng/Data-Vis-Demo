@@ -73,7 +73,7 @@ export default function Page() {
   }
 
   const getButtonTailwindStyleById = (id: number) => {
-    return `w-[10%] mr-2 border rounded-2xl border-neutral-50 border-solid ${studyId === id ? 'bg-sky-500' : 'bg-gray-500'}`
+    return `w-[20%] xl:w-[10%] px-2 mr-2 border rounded-2xl border-neutral-50 border-solid ${studyId === id ? 'bg-sky-500' : 'bg-gray-500'}`
   }
 
   return (

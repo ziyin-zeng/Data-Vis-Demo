@@ -109,7 +109,7 @@ const GlucoseChart = (props: GlucoseChartProps) => {
           </Typography>
         </CustomWidthTooltip>
       </div>
-      <div className="p-4 lg:p-10">
+      <div className="px-4 lg:px-10">
         <ReactEcharts option={option} />
       </div>
     </div>

@@ -38,7 +38,7 @@ export default function GlucoseAnalysis(props: GlucoseAnalysisProps) {
                     </Typography>
                 </CustomWidthTooltip>
             </div>
-            <div className='p-4 flex flex-col items-center lg:justify-between lg:flex-row lg:p-10'>
+            <div className='px-4 flex flex-col items-center lg:justify-between lg:flex-row lg:px-10'>
                 <Box className="w-[80%] lg:min-w-[25%] lg:max-w-[33%]">
                     <Card variant="outlined"><GlucoseDataCard value={'' + glucoseValue[glucoseValue.length - 1]} text="Latest glucose data" type="latest" /></Card>
                 </Box>
