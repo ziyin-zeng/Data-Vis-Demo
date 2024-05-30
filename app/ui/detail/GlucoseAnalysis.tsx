@@ -14,11 +14,10 @@ import GlucoseDataCard from './GlucoseDataCard'
 
 interface GlucoseAnalysisProps {
     glucoseData: GlucoseDataType[],
-    studyId: number
 }
 
 export default function GlucoseAnalysis(props: GlucoseAnalysisProps) {
-    const { glucoseData, studyId } = props;
+    const { glucoseData } = props;
 
     // without the [0], on first load, the Card component doesn't have anything to show
     const glucoseValue = glucoseData.length ? getAllGlucoseValue(glucoseData) : [0];
@@ -31,7 +30,7 @@ export default function GlucoseAnalysis(props: GlucoseAnalysisProps) {
         <React.Fragment>
             <div className='text-start p-4 flex flex-col items-start justify-between xl:flex-row xl:items-end xl:p-8'>
                 <Typography variant="h4" gutterBottom>
-                    Glucose Analysis Summary for study {studyId}
+                    Glucose Analysis Summary
                 </Typography>
                 <CustomWidthTooltip title={studyExplaination} placement="top" arrow>
                     <Typography sx={{ color: "#696969" }} gutterBottom>

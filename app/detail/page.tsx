@@ -72,6 +72,10 @@ export default function Page() {
     setStudyId(id);
   }
 
+  const getButtonTailwindStyleById = (id: number) => {
+    return `w-[10%] mr-2 border rounded-2xl border-neutral-50 border-solid ${studyId === id ? 'bg-sky-500' : 'bg-gray-500'}`
+  }
+
   return (
     // When I try to build, an error comes up tell me to wrap useSearchParams() with Supense boudary
     // <Suspense>
@@ -85,8 +89,8 @@ export default function Page() {
         </div>
       </Link>
       {patient ? <PatientBasicInfo patient={patient}/> : <div>There is no patient data</div>}
-      <div>Study : {study.map(s => <button key={s.id} onClick={() => handleClick(s.id)}>{s.id + "~"}</button>)}</div>
-      {glucoseData && studyId ? <GlucoseAnalysis glucoseData={glucoseData} studyId={studyId} /> : <div>There is no glucose data</div>}
+      <div className='text-start pl-8'>{study.map(s => <button className={getButtonTailwindStyleById(s.id)} key={s.id} onClick={() => handleClick(s.id)}>{"Study " + s.id}</button>)}</div>
+      {glucoseData && studyId ? <GlucoseAnalysis glucoseData={glucoseData} /> : <div>There is no glucose data</div>}
       {glucoseData && studyId ? <GlucoseChart glucoseData={glucoseData} /> : <div>There is no glucose data</div>}
     </div>
     // </Suspense>

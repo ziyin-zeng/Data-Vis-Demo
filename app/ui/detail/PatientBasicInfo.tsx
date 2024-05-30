@@ -52,7 +52,7 @@ const PatientBasicInfoText = (props: PatientBasicInfoTextProps) => {
 
     return (
         <div className="flex flex-col items-end">
-            <div>Created at</div>
+            <div>Updated on</div>
             <div>{timeString}</div>
         </div>
     )
