@@ -21,7 +21,8 @@ import GlucoseAnalysis from "../ui/detail/GlucoseAnalysis";
 
 export default function Page() {
   // this is for multiple study scenario, user could choose between studyIds
-  const [studyId, setStudyId] = useState<number>(0);
+  const [studyId, setStudyId] = useState<number>();
+  const [isStudyFetched, setIsStudyFetched] = useState<boolean>(false);
 
   const searchParams = useSearchParams();
   // searchParams.get returns a string | null, since it's unpredictable
@@ -54,9 +55,15 @@ export default function Page() {
 
   useEffect(() => {
     if (studiesStatus === 'idle') {
-      dispatch(fetchStudies(+patientId));
+      dispatch(fetchStudies(+patientId))
+        .then(response => {
+          if(!isStudyFetched) {
+            setStudyId(response.payload[0].id)
+            setIsStudyFetched(true);
+          }
+        });
     }
-    if (glucoseDataStatus === 'idle') {
+    if (glucoseDataStatus === 'idle' && studyId) {
       dispatch(fetchGlucoseData(studyId));
     }
   }, [studiesStatus, glucoseDataStatus, studyId, dispatch]);
@@ -79,7 +86,7 @@ export default function Page() {
       </Link>
       {patient ? <PatientBasicInfo patient={patient}/> : <div>There is no patient data</div>}
       <div>Study : {study.map(s => <button key={s.id} onClick={() => handleClick(s.id)}>{s.id + "~"}</button>)}</div>
-      {glucoseData ? <GlucoseAnalysis glucoseData={glucoseData} studyId={studyId} /> : <div>There is no glucose data</div>}
+      {glucoseData && studyId ? <GlucoseAnalysis glucoseData={glucoseData} studyId={studyId} /> : <div>There is no glucose data</div>}
       {glucoseData ? <GlucoseChart glucoseData={glucoseData} /> : <div>There is no glucose data</div>}
     </div>
     // </Suspense>
