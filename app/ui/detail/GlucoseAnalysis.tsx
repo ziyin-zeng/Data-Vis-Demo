@@ -61,6 +61,7 @@ const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
 ))({
     [`& .${tooltipClasses.tooltip}`]: {
         maxWidth: 400,
+        fontSize: "1rem"
     },
 });
 
