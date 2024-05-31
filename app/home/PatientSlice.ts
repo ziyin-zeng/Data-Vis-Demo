@@ -82,3 +82,4 @@ export const { addPatients, setFetchPatientStatus } = patientSlice.actions;
 // customized Selector, tell TS that state is RootState, and could do some basic query
 export const selectPatients = (state: RootState) => state.patients.patients;
 export const selectPatientById = (state: RootState, patientId: number | null) => state.patients.patients.find(p => p.id === patientId);
+export const getPatientListLength = (state : RootState) => state.patients.patients.length;

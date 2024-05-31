@@ -2,6 +2,11 @@
 
 // React
 import React, { useEffect, useState } from 'react';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import HomeIcon from '@mui/icons-material/Home';
+import { styled } from '@mui/material/styles';
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 // import { Suspense } from "react";
 
 // Next
@@ -10,7 +15,7 @@ import { useSearchParams } from "next/navigation";
 
 // Redux
 import { useAppDispatch, useAppSelector } from "../store/hook";
-import { selectPatientById } from "../home/PatientSlice";
+import { selectPatientById, getPatientListLength } from "../home/PatientSlice";
 import { fetchStudies, setFetchStudyStatus, selectStudies } from "@/app/detail/StudySlice";
 import { selectGlucoseData, fetchGlucoseData, setFetchGlucoseStatus } from "@/app/detail/GlucoseSlice";
 
@@ -34,6 +39,7 @@ export default function Page() {
 
   // use the [patientId] from URL to select patient object
   const patient = useAppSelector((state) => selectPatientById(state, +patientId));
+  const patientNumber = useAppSelector(getPatientListLength);
 
   const dispatch = useAppDispatch();
 
@@ -62,11 +68,15 @@ export default function Page() {
     if (glucoseDataStatus === 'idle' && studyId) {
       dispatch(fetchGlucoseData(studyId));
     }
-  }, [studiesStatus, glucoseDataStatus, studyId, dispatch]);
+  }, [studiesStatus, glucoseDataStatus, studyId, patientId, dispatch]);
 
   const handleClick = (id: number) => {
     setStudyId(id);
     dispatch(setFetchGlucoseStatus('idle'));    // fetch glucose data after switch study
+  }
+
+  const handlePatientIdClick = () => {
+    setIsStudyFetched(false);   // need to set isStudyFetched to false, since we do need to re-fetch study after another patient is rendered
   }
 
   const getButtonTailwindStyleById = (id: number) => {
@@ -74,22 +84,46 @@ export default function Page() {
   }
 
   return (
-    // When I try to build, an error comes up tell me to wrap useSearchParams() with Supense boudary
+    // When I try to build, an error comes up tells me to wrap useSearchParams() with Supense boudary
     // <Suspense>
     <div className="w-full mx-auto text-center md:w-3/4">
-      <Link href="/home">
-        <div
-          suppressHydrationWarning
-          className="mx-auto bg-blue-200"
-        >
-          Back to Home Page
+      <div className="w-full px-4 pt-4 lg:px-8 flex flex-row justify-between items-center">
+        <div className="flex flex-row items-center">
+          {+patientId - 1 > 0 && <Link href={{ pathname: "/detail", query: { pid: +patientId - 1 > 0 ? +patientId - 1 : 1 } }}
+            className="mr-2 w-full border px-2 rounded-2xl bg-gray-500"
+            onClick={handlePatientIdClick}
+          >
+            <CustomWidthTooltip title={"Previous patient"} placement="top" arrow>
+              <NavigateBeforeIcon />
+            </CustomWidthTooltip>
+          </Link>}
+          {+patientId + 1 <= patientNumber && <Link href={{ pathname: "/detail", query: { pid: +patientId + 1 <= patientNumber ? +patientId + 1 : patientNumber } }}
+            className="w-full border px-2 rounded-2xl bg-gray-500"
+            onClick={handlePatientIdClick}
+          >
+            <CustomWidthTooltip title={"Next patient"} placement="top" arrow>
+              <NavigateNextIcon />
+            </CustomWidthTooltip>
+          </Link>}
         </div>
-      </Link>
+        <Link href="/home" className="border px-4 rounded-2xl bg-gray-500">
+          <HomeIcon />
+        </Link>
+      </div>
       {patient ? <PatientBasicInfo patient={patient} /> : <div>There is no patient data</div>}
       <div className='text-start pl-8'>{study.map(s => <button className={getButtonTailwindStyleById(s.id)} key={s.id} onClick={() => handleClick(s.id)}>{"Study No." + s.id}</button>)}</div>
-      <GlucoseAnalysis glucoseData={glucoseData} glucoseDataStatus={glucoseDataStatus}/>
+      <GlucoseAnalysis glucoseData={glucoseData} glucoseDataStatus={glucoseDataStatus} />
       <GlucoseChart glucoseData={glucoseData} glucoseDataStatus={glucoseDataStatus} />
     </div>
     // </Suspense>
   );
 }
+
+// this is for a larger tooltip
+const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))({
+  [`& .${tooltipClasses.tooltip}`]: {
+    maxWidth: 600,
+  },
+});
