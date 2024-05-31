@@ -13,6 +13,7 @@ import axios from "axios";
 import PatientProfil from "./PatientProfil";
 import { emptyGlucoseData } from "@/app/detail/GlucoseSlice";
 import { mockGlucose } from "@/app/lib/glucoseCalculation";
+import GlobalLoading from "../GlobalLoading";
 
 const PatientDashboard = () => {
     const dispatch = useAppDispatch();
@@ -37,7 +38,7 @@ const PatientDashboard = () => {
     }, [patientsStatus, dispatch]);
 
     if (patientsStatus === 'loading') {
-        return <div>Loading...</div>;
+        return <GlobalLoading/>;
     }
 
     // Use lodash, built-in function [debounce]

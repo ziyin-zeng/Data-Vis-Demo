@@ -39,7 +39,7 @@ export default function Page() {
 
   // use the [patientId] from URL to select patient object
   const patient = useAppSelector((state) => selectPatientById(state, +patientId));
-  const patientNumber = useAppSelector(getPatientListLength);
+  const patientNumber = useAppSelector(getPatientListLength);     // total number of patients in redux store
 
   const dispatch = useAppDispatch();
 

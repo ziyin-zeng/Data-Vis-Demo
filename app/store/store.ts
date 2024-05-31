@@ -1,20 +1,31 @@
 // Redux
 import { configureStore } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 // In-Project
 import patientsReducer from "../home/PatientSlice";
 import studiesReducer from "../detail/StudySlice";
 import glucoseReducer from "../detail/GlucoseSlice";
 
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, patientsReducer);
+
 const store = configureStore({
   reducer: {
-    patients: patientsReducer,
+    patients: persistedReducer,
     studies : studiesReducer,
     glucoseData : glucoseReducer,
   },
 });
 
-export default store;
+const persistor = persistStore(store);
+
+export { store, persistor };
 
 // get the type of [RootState] and [AppDispatch] from [store] itself
 // type of [RootState] = { patients : PatientsState }

@@ -32,7 +32,7 @@ export default function GlucoseAnalysis(props: GlucoseAnalysisProps) {
         <React.Fragment>
             <div className='text-start p-4 flex flex-col items-start justify-between xl:flex-row xl:items-end xl:p-8'>
                 <Typography variant="h4" gutterBottom>
-                    Glucose Analysis Summary {glucoseDataStatus === 'loading' ? <CircularProgress size={30}/> : ""}
+                    Glucose Data Analysis Summary {glucoseDataStatus === 'loading' ? <CircularProgress size={30}/> : ""}
                 </Typography>
                 <CustomWidthTooltip title={studyExplaination} placement="top" arrow>
                     <Typography sx={{ color: "#696969" }} gutterBottom>
