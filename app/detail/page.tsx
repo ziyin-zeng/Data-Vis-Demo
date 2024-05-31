@@ -43,23 +43,19 @@ export default function Page() {
   // get glucose data no matter if study exists
   const glucoseData = useAppSelector(selectGlucoseData);
 
-  if (!study) {
-    return <div>There is no study data</div>
-  };
-
   // Each time the page is reloaded, reset the status to idle, then it will cause a re-fetch
-  dispatch(setFetchGlucoseStatus('idle'));
   dispatch(setFetchStudyStatus('idle'));
   const studiesStatus = useAppSelector(state => state.studies.status);
   const glucoseDataStatus = useAppSelector(state => state.glucoseData.status);
 
   useEffect(() => {
-    if (studiesStatus === 'idle') {
+    if (studiesStatus === 'idle' && !isStudyFetched) {
       dispatch(fetchStudies(+patientId))
         .then(response => {
           if (!isStudyFetched) {
             setStudyId(response.payload[0]?.id)
             setIsStudyFetched(true);
+            dispatch(setFetchGlucoseStatus('idle'));    // make sure glucose data will be fetched immediately after study is fetched
           }
         });
     }
@@ -70,6 +66,7 @@ export default function Page() {
 
   const handleClick = (id: number) => {
     setStudyId(id);
+    dispatch(setFetchGlucoseStatus('idle'));    // fetch glucose data after switch study
   }
 
   const getButtonTailwindStyleById = (id: number) => {
@@ -90,8 +87,8 @@ export default function Page() {
       </Link>
       {patient ? <PatientBasicInfo patient={patient} /> : <div>There is no patient data</div>}
       <div className='text-start pl-8'>{study.map(s => <button className={getButtonTailwindStyleById(s.id)} key={s.id} onClick={() => handleClick(s.id)}>{"Study No." + s.id}</button>)}</div>
-      {glucoseData && studyId ? <GlucoseAnalysis glucoseData={glucoseData} /> : <div>There is no glucose data</div>}
-      {glucoseData && studyId ? <GlucoseChart glucoseData={glucoseData} /> : <div>There is no glucose data</div>}
+      <GlucoseAnalysis glucoseData={glucoseData} glucoseDataStatus={glucoseDataStatus}/>
+      <GlucoseChart glucoseData={glucoseData} glucoseDataStatus={glucoseDataStatus} />
     </div>
     // </Suspense>
   );

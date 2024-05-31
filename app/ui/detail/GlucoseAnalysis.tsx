@@ -6,18 +6,20 @@ import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import TipsAndUpdatesOutlinedIcon from '@mui/icons-material/TipsAndUpdatesOutlined';
+import CircularProgress from '@mui/material/CircularProgress';
 
 // In-Project
 import { getAllGlucoseValue, averageGlucose, tirGlucose } from "@/app/lib/glucoseCalculation";
 import GlucoseDataType from '@/app/type/GlucoseDataType';
-import GlucoseDataCard from './GlucoseDataCard'
+import GlucoseDataCard from './GlucoseDataCard';
 
 interface GlucoseAnalysisProps {
     glucoseData: GlucoseDataType[],
+    glucoseDataStatus: string,
 }
 
 export default function GlucoseAnalysis(props: GlucoseAnalysisProps) {
-    const { glucoseData } = props;
+    const { glucoseData, glucoseDataStatus } = props;
 
     // without the [0], on first load, the Card component doesn't have anything to show
     const glucoseValue = glucoseData.length ? getAllGlucoseValue(glucoseData) : [0];
@@ -30,7 +32,7 @@ export default function GlucoseAnalysis(props: GlucoseAnalysisProps) {
         <React.Fragment>
             <div className='text-start p-4 flex flex-col items-start justify-between xl:flex-row xl:items-end xl:p-8'>
                 <Typography variant="h4" gutterBottom>
-                    Glucose Analysis Summary
+                    Glucose Analysis Summary {glucoseDataStatus === 'loading' ? <CircularProgress size={30}/> : ""}
                 </Typography>
                 <CustomWidthTooltip title={studyExplaination} placement="top" arrow>
                     <Typography sx={{ color: "#696969" }} gutterBottom>

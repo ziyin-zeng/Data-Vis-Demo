@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import TipsAndUpdatesOutlinedIcon from '@mui/icons-material/TipsAndUpdatesOutlined';
+import CircularProgress from '@mui/material/CircularProgress';
 
 // 3rd party library
 import ReactEcharts from "echarts-for-react";
@@ -13,11 +14,12 @@ import GlucoseDataType from "@/app/type/GlucoseDataType";
 import { getAllGlucoseValueAndDate } from "@/app/lib/glucoseCalculation";
 
 interface GlucoseChartProps {
-  glucoseData: GlucoseDataType[];
+  glucoseData: GlucoseDataType[],
+  glucoseDataStatus: string,
 }
 
 const GlucoseChart = (props: GlucoseChartProps) => {
-  const { glucoseData } = props;
+  const { glucoseData, glucoseDataStatus } = props;
 
   let data = getAllGlucoseValueAndDate(glucoseData); 
 
@@ -102,7 +104,7 @@ const GlucoseChart = (props: GlucoseChartProps) => {
     <div className="text-start">
       <div className="p-4 flex flex-col items-start justify-between xl:flex-row xl:items-end xl:p-8">
         <Typography variant="h4" gutterBottom>
-          Continous Glucose Monitoring History
+          Continous Glucose Monitoring History {glucoseDataStatus === 'loading' ? <CircularProgress size={30}/> : ""}
         </Typography>
         <CustomWidthTooltip title={breakPointsExplaination} placement="top" arrow>
           <Typography sx={{color:"#696969"}} gutterBottom>
