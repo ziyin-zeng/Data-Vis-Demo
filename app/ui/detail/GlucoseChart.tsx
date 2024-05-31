@@ -49,6 +49,7 @@ const GlucoseChart = (props: GlucoseChartProps) => {
         return [pt[0], '5%'];
       }
     },
+    color: "#FFFFFF",
     toolbox: {
       feature: {
         dataZoom: {
@@ -109,7 +110,7 @@ const GlucoseChart = (props: GlucoseChartProps) => {
           </Typography>
         </CustomWidthTooltip>
       </div>
-      <div className="px-4 lg:px-10">
+      <div className="px-4 pb-2 lg:px-10 lg:pb-8">
         <ReactEcharts option={option} />
       </div>
     </div>

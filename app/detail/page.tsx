@@ -28,7 +28,7 @@ export default function Page() {
   // searchParams.get returns a string | null, since it's unpredictable
   const patientId = searchParams.get("pid");
 
-  if(!patientId) {
+  if (!patientId) {
     return <div>Invalid URL, please provide patientId</div>
   }
 
@@ -57,7 +57,7 @@ export default function Page() {
     if (studiesStatus === 'idle') {
       dispatch(fetchStudies(+patientId))
         .then(response => {
-          if(!isStudyFetched) {
+          if (!isStudyFetched) {
             setStudyId(response.payload[0]?.id)
             setIsStudyFetched(true);
           }
@@ -88,7 +88,7 @@ export default function Page() {
           Back to Home Page
         </div>
       </Link>
-      {patient ? <PatientBasicInfo patient={patient}/> : <div>There is no patient data</div>}
+      {patient ? <PatientBasicInfo patient={patient} /> : <div>There is no patient data</div>}
       <div className='text-start pl-8'>{study.map(s => <button className={getButtonTailwindStyleById(s.id)} key={s.id} onClick={() => handleClick(s.id)}>{"Study No." + s.id}</button>)}</div>
       {glucoseData && studyId ? <GlucoseAnalysis glucoseData={glucoseData} /> : <div>There is no glucose data</div>}
       {glucoseData && studyId ? <GlucoseChart glucoseData={glucoseData} /> : <div>There is no glucose data</div>}
