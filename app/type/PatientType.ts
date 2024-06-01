@@ -4,6 +4,7 @@ interface PatientType {
   name: string;
   gender: string;
   createdAt: string;
+  city: string;
 }
 
 export default PatientType;

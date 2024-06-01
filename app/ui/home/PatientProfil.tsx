@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import PatientType from "@/app/type/PatientType";
 
 // Redux
 import { useAppSelector } from "@/app/store/hook";

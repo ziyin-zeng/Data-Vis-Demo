@@ -15,7 +15,7 @@ import { useSearchParams } from "next/navigation";
 
 // Redux
 import { useAppDispatch, useAppSelector } from "../store/hook";
-import { selectPatientById, getPatientListLength } from "../home/PatientSlice";
+import { selectPatients, selectPatientById, getPatientListLength } from "../home/PatientSlice";
 import { fetchStudies, setFetchStudyStatus, selectStudies } from "@/app/detail/StudySlice";
 import { selectGlucoseData, fetchGlucoseData, setFetchGlucoseStatus } from "@/app/detail/GlucoseSlice";
 
@@ -40,6 +40,7 @@ export default function Page() {
   // use the [patientId] from URL to select patient object
   const patient = useAppSelector((state) => selectPatientById(state, +patientId));
   const patientNumber = useAppSelector(getPatientListLength);     // total number of patients in redux store
+  const patientsList = useAppSelector(selectPatients);
 
   const dispatch = useAppDispatch();
 
@@ -86,34 +87,43 @@ export default function Page() {
   return (
     // When I try to build, an error comes up tells me to wrap useSearchParams() with Supense boudary
     // <Suspense>
-    <div className="w-full mx-auto text-center md:w-3/4">
-      <div className="w-full px-4 pt-4 lg:px-8 flex flex-row justify-between items-center">
-        <div className="flex flex-row items-center">
-          {+patientId - 1 > 0 && <Link href={{ pathname: "/detail", query: { pid: +patientId - 1 > 0 ? +patientId - 1 : 1 } }}
-            className="mr-2 w-full border px-2 rounded-2xl bg-gray-500"
-            onClick={handlePatientIdClick}
-          >
-            <CustomWidthTooltip title={"Previous patient"} placement="top" arrow>
-              <NavigateBeforeIcon />
-            </CustomWidthTooltip>
-          </Link>}
-          {+patientId + 1 <= patientNumber && <Link href={{ pathname: "/detail", query: { pid: +patientId + 1 <= patientNumber ? +patientId + 1 : patientNumber } }}
-            className="w-full border px-2 rounded-2xl bg-gray-500"
-            onClick={handlePatientIdClick}
-          >
-            <CustomWidthTooltip title={"Next patient"} placement="top" arrow>
-              <NavigateNextIcon />
-            </CustomWidthTooltip>
-          </Link>}
-        </div>
-        <Link href="/home" className="border px-4 rounded-2xl bg-gray-500">
-          <HomeIcon />
-        </Link>
+    <div className='w-full flex flex-row'>
+      <div className='md:fixed md:top-0 md:bottom-0 md:border md:rounded-2xl md:w-1/10 md:w-1/5 h-screen '>
+        {patientsList.map(p => {
+          return (
+            <div>{p.name}</div>
+          )
+        })}
       </div>
-      {patient ? <PatientBasicInfo patient={patient} /> : <div>There is no patient data</div>}
-      <div className='text-start pl-8'>{study.map(s => <button className={getButtonTailwindStyleById(s.id)} key={s.id} onClick={() => handleClick(s.id)}>{"Study No." + s.id}</button>)}</div>
-      <GlucoseAnalysis glucoseData={glucoseData} glucoseDataStatus={glucoseDataStatus} />
-      <GlucoseChart glucoseData={glucoseData} glucoseDataStatus={glucoseDataStatus} />
+      <div className="absolute md:left-[20%] w-full md:w-4/5 mx-auto text-center">
+        <div className="w-full px-4 pt-4 lg:px-8 flex flex-row justify-between items-center">
+          <div className="flex flex-row items-center">
+            {+patientId - 1 > 0 && <Link href={{ pathname: "/detail", query: { pid: +patientId - 1 > 0 ? +patientId - 1 : 1 } }}
+              className="mr-2 w-full border px-2 rounded-2xl bg-gray-500"
+              onClick={handlePatientIdClick}
+            >
+              <CustomWidthTooltip title={"Previous patient"} placement="top" arrow>
+                <NavigateBeforeIcon />
+              </CustomWidthTooltip>
+            </Link>}
+            {+patientId + 1 <= patientNumber && <Link href={{ pathname: "/detail", query: { pid: +patientId + 1 <= patientNumber ? +patientId + 1 : patientNumber } }}
+              className="w-full border px-2 rounded-2xl bg-gray-500"
+              onClick={handlePatientIdClick}
+            >
+              <CustomWidthTooltip title={"Next patient"} placement="top" arrow>
+                <NavigateNextIcon />
+              </CustomWidthTooltip>
+            </Link>}
+          </div>
+          <Link href="/home" className="border px-4 rounded-2xl bg-gray-500">
+            <HomeIcon />
+          </Link>
+        </div>
+        {patient ? <PatientBasicInfo patient={patient} /> : <div>There is no patient data</div>}
+        <div className='text-start pl-8'>{study.map(s => <button className={getButtonTailwindStyleById(s.id)} key={s.id} onClick={() => handleClick(s.id)}>{"Study No." + s.id}</button>)}</div>
+        <GlucoseAnalysis glucoseData={glucoseData} glucoseDataStatus={glucoseDataStatus} />
+        <GlucoseChart glucoseData={glucoseData} glucoseDataStatus={glucoseDataStatus} />
+      </div>
     </div>
     // </Suspense>
   );
