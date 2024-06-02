@@ -33,10 +33,15 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 interface PatientAvatarProps {
-    initialChar : string;
+    name : string;
 }
 
 export default function PatientAvatar(props : PatientAvatarProps) {
+    // To show the initial character of a name
+    const getFirstChar = (name: string) => {
+        return name ? name[0] : "@";
+    }
+
     return (
         <div className="block">
             <StyledBadge
@@ -44,7 +49,7 @@ export default function PatientAvatar(props : PatientAvatarProps) {
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                 variant="dot"
             >
-                <Avatar sx={{ bgcolor: "orange" }}>{props.initialChar}</Avatar>
+                <Avatar sx={{ bgcolor: "orange" }}>{getFirstChar(props.name)}</Avatar>
             </StyledBadge>
         </div>
     );

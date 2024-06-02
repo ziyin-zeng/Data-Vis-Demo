@@ -8,11 +8,6 @@ interface PatientBasicInfoProps {
     patient: PatientType | undefined,
 }
 
-// To show the initial character of a name
-const getFirstChar = (name: string) => {
-    return name ? name[0] : "@";
-}
-
 const PatientBasicInfo = (props: PatientBasicInfoProps) => {
     const { patient } = props;
 
@@ -26,7 +21,7 @@ const PatientBasicInfo = (props: PatientBasicInfoProps) => {
     return (
         <div className="flex flex-col p-4 lg:flex-row lg:justify-between lg:p-8">
             <div className="flex items-center">
-                <PatientAvatar initialChar={getFirstChar(name)} />
+                <PatientAvatar name={name} />
                 <div className="ml-2 flex flex-col items-start lg:ml-4">
                     <div className="text-xl">{name}</div>
                     <div>{gender === "male" ? "Male" : "Female"}</div>

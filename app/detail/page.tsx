@@ -15,7 +15,7 @@ import { useSearchParams } from "next/navigation";
 
 // Redux
 import { useAppDispatch, useAppSelector } from "../store/hook";
-import { selectPatients, selectPatientById, getPatientListLength } from "../home/PatientSlice";
+import { selectPatientById, getPatientListLength } from "../home/PatientSlice";
 import { fetchStudies, setFetchStudyStatus, selectStudies } from "@/app/detail/StudySlice";
 import { selectGlucoseData, fetchGlucoseData, setFetchGlucoseStatus } from "@/app/detail/GlucoseSlice";
 
@@ -23,6 +23,7 @@ import { selectGlucoseData, fetchGlucoseData, setFetchGlucoseStatus } from "@/ap
 import GlucoseChart from "../ui/detail/GlucoseChart";
 import PatientBasicInfo from "../ui/detail/PatientBasicInfo";
 import GlucoseAnalysis from "../ui/detail/GlucoseAnalysis";
+import SideBarPatientList from '../ui/detail/SideBarPatientList';
 
 export default function Page() {
   // this is for multiple study scenario, user could choose between studyIds
@@ -40,7 +41,6 @@ export default function Page() {
   // use the [patientId] from URL to select patient object
   const patient = useAppSelector((state) => selectPatientById(state, +patientId));
   const patientNumber = useAppSelector(getPatientListLength);     // total number of patients in redux store
-  const patientsList = useAppSelector(selectPatients);
 
   const dispatch = useAppDispatch();
 
@@ -88,13 +88,7 @@ export default function Page() {
     // When I try to build, an error comes up tells me to wrap useSearchParams() with Supense boudary
     // <Suspense>
     <div className='w-full flex flex-row'>
-      <div className='md:fixed md:top-0 md:bottom-0 md:border md:rounded-2xl md:w-1/10 md:w-1/5 h-screen '>
-        {patientsList.map(p => {
-          return (
-            <div>{p.name}</div>
-          )
-        })}
-      </div>
+      <SideBarPatientList currentPatient={patientId}/>
       <div className="absolute md:left-[20%] w-full md:w-4/5 mx-auto text-center">
         <div className="w-full px-4 pt-4 lg:px-8 flex flex-row justify-between items-center">
           <div className="flex flex-row items-center">
