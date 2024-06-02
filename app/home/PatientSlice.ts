@@ -3,7 +3,11 @@ import axios from "axios";
 
 // Redux 
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import type { RootState } from '@/app/store/store'
+import type { RootState } from '@/app/store/store';
+
+// doesn't really help for now, but if someday a purge to the storage is needed, use this snippet
+// import { PURGE } from 'redux-persist';
+// import { storage } from "@/app/store/webStorage";
 
 // In-Project
 import PatientType from "@/app/type/PatientType";
@@ -72,6 +76,11 @@ const patientSlice = createSlice({
         state.status = 'failed'
         state.error = action.error.message
       })
+      // doesn't really help for now, but if someday a purge to the storage is needed, use this snippet
+      // .addCase(PURGE, () => {        
+      //   storage.removeItem('persist:root');
+      //   return initialState;
+      // })
   }
 });
 

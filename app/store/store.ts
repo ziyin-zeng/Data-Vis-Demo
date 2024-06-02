@@ -1,33 +1,18 @@
 // Redux
 import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
-import createWebStorage from "redux-persist/lib/storage/createWebStorage";
+import { storage } from "./webStorage";
+import autoMergeLevel1 from "redux-persist/es/stateReconciler/autoMergeLevel1"
 
 // In-Project
 import patientsReducer from "../home/PatientSlice";
 import studiesReducer from "../detail/StudySlice";
 import glucoseReducer from "../detail/GlucoseSlice";
 
-// Work around from : https://github.com/vercel/next.js/discussions/15687#discussioncomment-45319
-const createNoopStorage = () => {
-  return {
-    getItem(_key: any) {
-      return Promise.resolve(null);
-    },
-    setItem(_key: any, value: any) {
-      return Promise.resolve(value);
-    },
-    removeItem(_key: any) {
-      return Promise.resolve();
-    },
-  };
-};
-
-const storage = typeof window !== "undefined" ? createWebStorage("local") : createNoopStorage();
-
 const persistConfig = {
   key: 'root',
   storage: storage,
+  autoMergeLevel1,    // by default it's level 1, but somehow doesn't work, so still have to indicate it here
 };
 
 const persistedReducer = persistReducer(persistConfig, patientsReducer);
