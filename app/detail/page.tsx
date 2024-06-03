@@ -11,11 +11,10 @@ import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 
 // Next
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 
 // Redux
 import { useAppDispatch, useAppSelector } from "../store/hook";
-import { selectPatientById, getPatientListLength } from "../home/PatientSlice";
+import { selectPatientById, getPatientListLength, setCurrentPatientId, selectCurrentPatientId, fetchPatients, setFetchPatientStatus } from "@/app/home/PatientSlice";
 import { fetchStudies, setFetchStudyStatus, selectStudies } from "@/app/detail/StudySlice";
 import { selectGlucoseData, fetchGlucoseData, setFetchGlucoseStatus } from "@/app/detail/GlucoseSlice";
 
@@ -29,20 +28,19 @@ export default function Page() {
   // this is for multiple study scenario, user could choose between studyIds
   const [studyId, setStudyId] = useState<number>();
   const [isStudyFetched, setIsStudyFetched] = useState<boolean>(false);
+  const [isPatientFetched, setIsPatientFetched] = useState<boolean>(false);
 
-  const searchParams = useSearchParams();
-  // searchParams.get returns a string | null, since it's unpredictable
-  const patientId = searchParams.get("pid");
-
-  if (!patientId) {
-    return <div>Invalid URL, please provide patientId</div>
-  }
-
+  const currentPatientId = useAppSelector(selectCurrentPatientId);
   // use the [patientId] from URL to select patient object
-  const patient = useAppSelector((state) => selectPatientById(state, +patientId));
+  const patient = useAppSelector((state) => selectPatientById(state, currentPatientId));
   const patientNumber = useAppSelector(getPatientListLength);     // total number of patients in redux store
 
   const dispatch = useAppDispatch();
+
+  // This is important, cause a re-fetch after reload on this page
+  dispatch(setFetchPatientStatus('idle'));
+
+  dispatch(setCurrentPatientId(currentPatientId));
 
   // get the study by id just after studies are fetched from API
   const study = useAppSelector(selectStudies);
@@ -52,12 +50,28 @@ export default function Page() {
 
   // Each time the page is reloaded, reset the status to idle, then it will cause a re-fetch
   dispatch(setFetchStudyStatus('idle'));
+
+  // we could define callback function right in the arguments
+  // which tells the selector we want select the status of fecthPatients (Promise Object)
+  const patientsStatus = useAppSelector(state => state.patients.status);
   const studiesStatus = useAppSelector(state => state.studies.status);
   const glucoseDataStatus = useAppSelector(state => state.glucoseData.status);
 
   useEffect(() => {
+    if (patientsStatus === 'idle' && !isPatientFetched) {
+      // doesn't really help for now, but if someday a purge to the storage is needed, use this snippet
+      // persistor.purge();
+
+      // in the argument of [dispatch], [fetchPatients] is called directly
+      // which means it will return an action type, as the argument of [dispatch]
+      dispatch(fetchPatients())
+        .then(response => {
+          setIsPatientFetched(true);
+          dispatch(setFetchPatientStatus('idle'));
+        });
+    }
     if (studiesStatus === 'idle' && !isStudyFetched) {
-      dispatch(fetchStudies(+patientId))
+      dispatch(fetchStudies(currentPatientId))
         .then(response => {
           if (!isStudyFetched) {
             setStudyId(response.payload[0]?.id)
@@ -69,57 +83,67 @@ export default function Page() {
     if (glucoseDataStatus === 'idle' && studyId) {
       dispatch(fetchGlucoseData(studyId));
     }
-  }, [studiesStatus, glucoseDataStatus, studyId, patientId, dispatch]);
+  }, [patientsStatus, studiesStatus, glucoseDataStatus, studyId, currentPatientId, dispatch]);
 
-  const handleClick = (id: number) => {
-    setStudyId(id);
-    dispatch(setFetchGlucoseStatus('idle'));    // fetch glucose data after switch study
+  const handleStudyClick = (id: number) => {
+    if (id !== studyId) {
+      setStudyId(id);
+      dispatch(setFetchGlucoseStatus('idle'));    // fetch glucose data after switch study
+    }
   }
 
-  const handlePatientIdClick = () => {
+  const handlePatientNavButtonClick = (direction: string) => {
     setIsStudyFetched(false);   // need to set isStudyFetched to false, since we do need to re-fetch study after another patient is rendered
+
+    if (direction === 'previous') {
+      dispatch(setCurrentPatientId(currentPatientId - 1 > 0 ? currentPatientId - 1 : 1));
+    } else if (direction === 'next') {
+      dispatch(setCurrentPatientId(currentPatientId + 1 <= patientNumber ? currentPatientId + 1 : patientNumber));
+    }
   }
 
   const getButtonTailwindStyleById = (id: number) => {
     return `w-[20%] xl:w-[10%] px-2 mr-2 border rounded-2xl border-neutral-50 border-solid ${studyId === id ? 'bg-sky-500' : 'bg-gray-500'}`
   }
 
+  const handleSideBarClick = (selectedId: number) => {
+    dispatch(setCurrentPatientId(selectedId));
+    setIsStudyFetched(false);   // need to set isStudyFetched to false, since we do need to re-fetch study after another patient is rendered
+  }
+
   return (
-    // When I try to build, an error comes up tells me to wrap useSearchParams() with Supense boudary
-    // <Suspense>
     <div className='w-full flex flex-row'>
-      <SideBarPatientList currentPatient={patientId}/>
+      <SideBarPatientList handleClickCallback={handleSideBarClick} />
       <div className="absolute md:left-[20%] w-full md:w-4/5 mx-auto text-center">
         <div className="w-full px-4 pt-4 lg:px-8 flex flex-row justify-between items-center">
           <div className="flex flex-row items-center">
-            {+patientId - 1 > 0 && <Link href={{ pathname: "/detail", query: { pid: +patientId - 1 > 0 ? +patientId - 1 : 1 } }}
-              className="mr-2 w-full border px-2 rounded-2xl bg-gray-500"
-              onClick={handlePatientIdClick}
-            >
-              <CustomWidthTooltip title={"Previous patient"} placement="top" arrow>
-                <NavigateBeforeIcon />
-              </CustomWidthTooltip>
-            </Link>}
-            {+patientId + 1 <= patientNumber && <Link href={{ pathname: "/detail", query: { pid: +patientId + 1 <= patientNumber ? +patientId + 1 : patientNumber } }}
-              className="w-full border px-2 rounded-2xl bg-gray-500"
-              onClick={handlePatientIdClick}
-            >
-              <CustomWidthTooltip title={"Next patient"} placement="top" arrow>
-                <NavigateNextIcon />
-              </CustomWidthTooltip>
-            </Link>}
+            {currentPatientId - 1 > 0 &&
+              <button className="mr-2 w-full border px-2 rounded-2xl bg-gray-500"
+                onClick={() => handlePatientNavButtonClick('previous')}
+              >
+                <CustomWidthTooltip title={"Previous patient"} placement="bottom" arrow>
+                  <NavigateBeforeIcon />
+                </CustomWidthTooltip>
+              </button>}
+            {currentPatientId + 1 <= patientNumber &&
+              <button className="w-full border px-2 rounded-2xl bg-gray-500"
+                onClick={() => handlePatientNavButtonClick('next')}
+              >
+                <CustomWidthTooltip title={"Next patient"} placement="bottom" arrow>
+                  <NavigateNextIcon />
+                </CustomWidthTooltip>
+              </button>}
           </div>
-          <Link href="/home" className="border px-4 rounded-2xl bg-gray-500">
+          <Link href="/" className="border px-4 rounded-2xl bg-gray-500">
             <HomeIcon />
           </Link>
         </div>
         {patient ? <PatientBasicInfo patient={patient} /> : <div>There is no patient data</div>}
-        <div className='text-start pl-8'>{study.map(s => <button className={getButtonTailwindStyleById(s.id)} key={s.id} onClick={() => handleClick(s.id)}>{"Study No." + s.id}</button>)}</div>
+        <div className='text-start pl-8'>{study.map(s => <button className={getButtonTailwindStyleById(s.id)} key={s.id} onClick={() => handleStudyClick(s.id)}>{"Study No." + s.id}</button>)}</div>
         <GlucoseAnalysis glucoseData={glucoseData} glucoseDataStatus={glucoseDataStatus} />
         <GlucoseChart glucoseData={glucoseData} glucoseDataStatus={glucoseDataStatus} />
       </div>
     </div>
-    // </Suspense>
   );
 }
 

@@ -17,10 +17,12 @@ import PatientType from "@/app/type/PatientType";
 // , such as 'idle' | 'loading' | 'succeeded' | 'failed'
 const initialState: {
   patients: PatientType[],
+  currentPatientId: number,
   status: string,
   error: string | undefined
 } = {
   patients: [],
+  currentPatientId: -1,
   status: 'idle',
   error: undefined
 }
@@ -45,6 +47,9 @@ const patientSlice = createSlice({
     setFetchPatientStatus: (state, action: PayloadAction<string>) => {
       state.status = action.payload;
     },
+    setCurrentPatientId: (state, action : PayloadAction<number>) => {
+      state.currentPatientId = action.payload;
+    }
   },
   // Sometimes a certain action needs to be triggered under a certain case
   extraReducers(builder) {
@@ -57,6 +62,7 @@ const patientSlice = createSlice({
         // Add any fetched posts to the array
         // !!! Could add some avoid replica logic
         state.patients = action.payload;
+        state.currentPatientId = action.payload.length > 0 ? 1 : -1;
 
         // !!! The following will cause re-render, thus 2 size of result (no idea why)
         // state.patients = state.patients.concat(action.payload)
@@ -86,9 +92,10 @@ const patientSlice = createSlice({
 
 export default patientSlice.reducer;
 
-export const { addPatients, setFetchPatientStatus } = patientSlice.actions;
+export const { addPatients, setFetchPatientStatus, setCurrentPatientId } = patientSlice.actions;
 
 // customized Selector, tell TS that state is RootState, and could do some basic query
 export const selectPatients = (state: RootState) => state.patients.patients;
 export const selectPatientById = (state: RootState, patientId: number | null) => state.patients.patients.find(p => p.id === patientId);
 export const getPatientListLength = (state : RootState) => state.patients.patients.length;
+export const selectCurrentPatientId = (state : RootState) => state.patients.currentPatientId;
