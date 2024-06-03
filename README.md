@@ -4,6 +4,9 @@
 
 ![Image text](./img/detail-page.png)
 
+Responsive to mobile device
+![Image text](./img/responsive-detail-page.png)
+
 ![Image text](./img/realtime.png)
 
 ![Image text](./img/continous.png)
