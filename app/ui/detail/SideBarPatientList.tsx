@@ -19,7 +19,7 @@ const SideBarPatientList = (props : SideBarPatientListProps) => {
     const patientsList = useAppSelector(selectPatients);
 
     const getButtonTailwindStyleById = (id: number) => {
-        return `flex flex-row items-center p-2 my-2 ml-2 border rounded-2xl border-neutral-50 border-solid ${+currentPatientId === id ? 'bg-sky-500' : 'bg-gray-500'}`
+        return `flex flex-row items-center p-2 my-2 ml-2 border rounded-xl border-neutral-50 border-solid ${+currentPatientId === id ? 'bg-sky-500' : 'bg-gray-500'}`
     }
 
     return (
@@ -28,7 +28,7 @@ const SideBarPatientList = (props : SideBarPatientListProps) => {
                 return (
                     <button className={getButtonTailwindStyleById(p.id)} onClick={() => handleClickCallback(p.id)}>
                         <PatientAvatar name={p.name} />
-                        <div className="ml-2 text-xl">{p.name}</div>
+                        <div className="ml-2 text-sm">{p.name}</div>
                     </button>
                 )
             })}
