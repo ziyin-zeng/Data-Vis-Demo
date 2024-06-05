@@ -47,7 +47,7 @@ const patientSlice = createSlice({
     setFetchPatientStatus: (state, action: PayloadAction<string>) => {
       state.status = action.payload;
     },
-    setCurrentPatientId: (state, action : PayloadAction<number>) => {
+    setCurrentPatientId: (state, action: PayloadAction<number>) => {
       state.currentPatientId = action.payload;
     }
   },
@@ -82,11 +82,11 @@ const patientSlice = createSlice({
         state.status = 'failed'
         state.error = action.error.message
       })
-      // doesn't really help for now, but if someday a purge to the storage is needed, use this snippet
-      // .addCase(PURGE, () => {        
-      //   storage.removeItem('persist:root');
-      //   return initialState;
-      // })
+    // doesn't really help for now, but if someday a purge to the storage is needed, use this snippet
+    // .addCase(PURGE, () => {        
+    //   storage.removeItem('persist:root');
+    //   return initialState;
+    // })
   }
 });
 
@@ -97,5 +97,5 @@ export const { addPatients, setFetchPatientStatus, setCurrentPatientId } = patie
 // customized Selector, tell TS that state is RootState, and could do some basic query
 export const selectPatients = (state: RootState) => state.patients.patients;
 export const selectPatientById = (state: RootState, patientId: number | null) => state.patients.patients.find(p => p.id === patientId);
-export const getPatientListLength = (state : RootState) => state.patients.patients.length;
-export const selectCurrentPatientId = (state : RootState) => state.patients.currentPatientId;
+export const getPatientListLength = (state: RootState) => state.patients.patients.length;
+export const selectCurrentPatientId = (state: RootState) => state.patients.currentPatientId;

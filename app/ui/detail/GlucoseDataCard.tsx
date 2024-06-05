@@ -25,7 +25,7 @@ const GlucoseDataCard = (props: ContentProps) => {
                     {value} {type === 'TIR' ? "%" : "mmol/L"}
                 </Typography>
             </CardContent>
-            <ExplainationPopup type={type}/>
+            <ExplainationPopup type={type} />
         </React.Fragment>
     );
 }

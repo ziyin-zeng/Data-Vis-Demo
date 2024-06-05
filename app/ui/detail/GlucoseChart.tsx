@@ -21,7 +21,7 @@ interface GlucoseChartProps {
 const GlucoseChart = (props: GlucoseChartProps) => {
   const { glucoseData, glucoseDataStatus } = props;
 
-  let data = getAllGlucoseValueAndDate(glucoseData); 
+  let data = getAllGlucoseValueAndDate(glucoseData);
 
   // let base = +new Date(2024, 4, 28);
   // let fiveMin = 5 * 60 * 1000;
@@ -73,8 +73,8 @@ const GlucoseChart = (props: GlucoseChartProps) => {
       },
       splitArea: {
         show: true,
-        areaStyle : {
-          color: ['rgba(0,0,0,0.3)','rgba(200,200,200,0.3)']
+        areaStyle: {
+          color: ['rgba(0,0,0,0.3)', 'rgba(200,200,200,0.3)']
         }
       }
     },
@@ -104,11 +104,11 @@ const GlucoseChart = (props: GlucoseChartProps) => {
     <div className="text-start">
       <div className="p-4 flex flex-col items-start justify-between xl:flex-row xl:items-end xl:p-8">
         <Typography variant="h4" gutterBottom>
-          Continous Glucose Monitoring History {glucoseDataStatus === 'loading' ? <CircularProgress size={30}/> : ""}
+          Continous Glucose Monitoring History {glucoseDataStatus === 'loading' ? <CircularProgress size={30} /> : ""}
         </Typography>
         <CustomWidthTooltip title={breakPointsExplaination} placement="top" arrow>
-          <Typography sx={{color:"#696969"}} gutterBottom>
-            <TipsAndUpdatesOutlinedIcon sx={{marginRight : "5px", marginBottom : "5px"}}/>Why am I seeing break points ?
+          <Typography sx={{ color: "#696969" }} gutterBottom>
+            <TipsAndUpdatesOutlinedIcon sx={{ marginRight: "5px", marginBottom: "5px" }} />Why am I seeing break points ?
           </Typography>
         </CustomWidthTooltip>
       </div>

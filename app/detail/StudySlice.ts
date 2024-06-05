@@ -8,14 +8,14 @@ import axios from "axios";
 // In-Project
 import StudyType from "../type/StudyType";
 
-const initialState : {
-    studies : StudyType[]
-    status : string,
-    error : string | undefined
+const initialState: {
+    studies: StudyType[]
+    status: string,
+    error: string | undefined
 } = {
-    studies : [],
-    status : "idle",
-    error : undefined
+    studies: [],
+    status: "idle",
+    error: undefined
 }
 
 export const fetchStudies = createAsyncThunk('studies/fetchStudies', async (patientId: number) => {
@@ -24,9 +24,9 @@ export const fetchStudies = createAsyncThunk('studies/fetchStudies', async (pati
 });
 
 const studySlice = createSlice({
-    name : "studies",
+    name: "studies",
     initialState,
-    reducers : {
+    reducers: {
         setFetchStudyStatus: (state, action: PayloadAction<string>) => {
             state.status = action.payload;
         }
@@ -35,7 +35,7 @@ const studySlice = createSlice({
         builder
             .addCase(fetchStudies.pending, (state) => {
                 state.status = "loading";
-            })    
+            })
             .addCase(fetchStudies.fulfilled, (state, action) => {
                 state.status = "succeeded";
                 state.studies = action.payload;
@@ -51,5 +51,5 @@ export default studySlice.reducer;
 
 export const { setFetchStudyStatus } = studySlice.actions;
 
-export const selectStudies = (state : RootState) => state.studies.studies;
-export const selectStudyById = (state : RootState, studyId : number) => state.studies.studies.find(s => s.id === studyId);
+export const selectStudies = (state: RootState) => state.studies.studies;
+export const selectStudyById = (state: RootState, studyId: number) => state.studies.studies.find(s => s.id === studyId);

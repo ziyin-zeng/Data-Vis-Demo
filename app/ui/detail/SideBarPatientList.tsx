@@ -9,10 +9,10 @@ import { selectCurrentPatientId, selectPatients } from "../../home/PatientSlice"
 import PatientAvatar from "../PatientAvatar";
 
 interface SideBarPatientListProps {
-    handleClickCallback : (selectedId: number) => void
+    handleClickCallback: (selectedId: number) => void
 }
 
-const SideBarPatientList = (props : SideBarPatientListProps) => {
+const SideBarPatientList = (props: SideBarPatientListProps) => {
     const { handleClickCallback } = props;
 
     const currentPatientId = useAppSelector(selectCurrentPatientId);

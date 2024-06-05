@@ -33,10 +33,10 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 interface PatientAvatarProps {
-    name : string;
+    name: string;
 }
 
-export default function PatientAvatar(props : PatientAvatarProps) {
+export default function PatientAvatar(props: PatientAvatarProps) {
     // To show the initial character of a name
     const getFirstChar = (name: string) => {
         return name ? name[0] : "@";

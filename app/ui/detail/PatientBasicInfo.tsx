@@ -27,7 +27,7 @@ const PatientBasicInfo = (props: PatientBasicInfoProps) => {
                     <div>{gender === "male" ? "Male" : "Female"}</div>
                 </div>
             </div>
-            <PatientBasicInfoText patient={patient}/>
+            <PatientBasicInfoText patient={patient} />
         </div>
     )
 }

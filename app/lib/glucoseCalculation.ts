@@ -78,28 +78,28 @@ export const mockGlucose = () => {
 
         if (nextData >= 15) {
             data.push({
-                id: i+1,
+                id: i + 1,
                 createdAt: now,
                 glucoseValue: 15,
                 studyId: 2
             });
         } else if (nextData <= 3 || !nextData) {
             data.push({
-                id: i+1,
+                id: i + 1,
                 createdAt: now,
                 glucoseValue: 3,
                 studyId: 2
             });
         } else if (Math.round(Math.random() * 100) > 95) {
             data.push({
-                id: i+1,
+                id: i + 1,
                 createdAt: now,
                 glucoseValue: null,
                 studyId: 2
             });
         } else {
             data.push({
-                id: i+1,
+                id: i + 1,
                 createdAt: now,
                 glucoseValue: nextData,
                 studyId: 2
