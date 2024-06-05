@@ -1,5 +1,6 @@
 // React
 import React from "react";
+import RecentActorsIcon from '@mui/icons-material/RecentActors';
 
 // Redux
 import { useAppSelector } from "@/app/store/hook";
@@ -24,6 +25,10 @@ const SideBarPatientList = (props: SideBarPatientListProps) => {
 
     return (
         <div className='visible max-md:invisible md:fixed md:top-0 md:bottom-0 md:border md:rounded-2xl md:w-1/5 md:h-screen md:overflow-y-auto'>
+            <div className="text-xl">
+                <RecentActorsIcon />
+                Patient list
+            </div>
             {patientsList.map(p => {
                 return (
                     <button className={getButtonTailwindStyleById(p.id)} onClick={() => handleClickCallback(p.id)}>

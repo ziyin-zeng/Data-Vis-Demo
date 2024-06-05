@@ -12,6 +12,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { getAllGlucoseValue, averageGlucose, tirGlucose } from "@/app/lib/glucoseCalculation";
 import GlucoseDataType from '@/app/type/GlucoseDataType';
 import GlucoseDataCard from './GlucoseDataCard';
+import TextWithIcon from '../TextWithIcon';
 
 interface GlucoseAnalysisProps {
     glucoseData: GlucoseDataType[],
@@ -35,9 +36,12 @@ export default function GlucoseAnalysis(props: GlucoseAnalysisProps) {
                     Glucose Data Analysis Summary {glucoseDataStatus === 'loading' ? <CircularProgress size={30} /> : ""}
                 </Typography>
                 <CustomWidthTooltip title={studyExplaination} placement="top" arrow>
-                    <Typography sx={{ color: "#696969" }} gutterBottom>
+                    {/* <Typography sx={{ color: "#696969" }} gutterBottom>
                         <TipsAndUpdatesOutlinedIcon sx={{ marginRight: "5px", marginBottom: "5px" }} />What is a study ?
-                    </Typography>
+                    </Typography> */}
+                    <TextWithIcon>
+                        <TipsAndUpdatesOutlinedIcon sx={{ marginRight: "5px", marginBottom: "5px" }}/>
+                    </TextWithIcon>
                 </CustomWidthTooltip>
             </div>
             <div className='px-4 flex flex-col items-center lg:justify-between lg:flex-row lg:px-10'>
