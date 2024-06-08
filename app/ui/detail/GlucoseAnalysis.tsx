@@ -35,14 +35,9 @@ export default function GlucoseAnalysis(props: GlucoseAnalysisProps) {
                 <Typography variant="h4" gutterBottom>
                     Glucose Data Analysis Summary {glucoseDataStatus === 'loading' ? <CircularProgress size={30} /> : ""}
                 </Typography>
-                <CustomWidthTooltip title={studyExplaination} placement="top" arrow>
-                    {/* <Typography sx={{ color: "#696969" }} gutterBottom>
-                        <TipsAndUpdatesOutlinedIcon sx={{ marginRight: "5px", marginBottom: "5px" }} />What is a study ?
-                    </Typography> */}
-                    <TextWithIcon>
-                        <TipsAndUpdatesOutlinedIcon sx={{ marginRight: "5px", marginBottom: "5px" }}/>
-                    </TextWithIcon>
-                </CustomWidthTooltip>
+                <TextWithIcon explaination={studyExplaination} content="What is a study ?">
+                    <TipsAndUpdatesOutlinedIcon sx={{ marginRight: "5px", marginBottom: "5px" }} />
+                </TextWithIcon>
             </div>
             <div className='px-4 flex flex-col items-center lg:justify-between lg:flex-row lg:px-10'>
                 <Box className="w-[80%] lg:min-w-[25%] lg:max-w-[33%]">
@@ -58,16 +53,6 @@ export default function GlucoseAnalysis(props: GlucoseAnalysisProps) {
         </React.Fragment>
     );
 }
-
-// this is for a larger tooltip
-const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
-    <Tooltip {...props} classes={{ popper: className }} />
-))({
-    [`& .${tooltipClasses.tooltip}`]: {
-        maxWidth: 400,
-        fontSize: "1rem"
-    },
-});
 
 const studyExplaination = `A study in diabetes treatment is a research investigation 
                             designed to evaluate the efficacy, safety, and potential 

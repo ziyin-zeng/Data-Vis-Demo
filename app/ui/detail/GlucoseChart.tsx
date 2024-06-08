@@ -12,6 +12,7 @@ import ReactEcharts from "echarts-for-react";
 // In-Project
 import GlucoseDataType from "@/app/type/GlucoseDataType";
 import { getAllGlucoseValueAndDate } from "@/app/lib/glucoseCalculation";
+import TextWithIcon from '../TextWithIcon';
 
 interface GlucoseChartProps {
   glucoseData: GlucoseDataType[],
@@ -106,11 +107,9 @@ const GlucoseChart = (props: GlucoseChartProps) => {
         <Typography variant="h4" gutterBottom>
           Continous Glucose Monitoring History {glucoseDataStatus === 'loading' ? <CircularProgress size={30} /> : ""}
         </Typography>
-        <CustomWidthTooltip title={breakPointsExplaination} placement="top" arrow>
-          <Typography sx={{ color: "#696969" }} gutterBottom>
-            <TipsAndUpdatesOutlinedIcon sx={{ marginRight: "5px", marginBottom: "5px" }} />Why am I seeing break points ?
-          </Typography>
-        </CustomWidthTooltip>
+        <TextWithIcon explaination={breakPointsExplaination} content="Why am I seeing break points ?">
+          <TipsAndUpdatesOutlinedIcon sx={{ marginRight: "5px", marginBottom: "5px" }} />
+        </TextWithIcon>
       </div>
       <div className="px-4 pb-2 lg:px-10 lg:pb-8">
         <ReactEcharts option={option} />
@@ -120,16 +119,6 @@ const GlucoseChart = (props: GlucoseChartProps) => {
 };
 
 export default GlucoseChart;
-
-// this is for a larger tooltip
-const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
-  <Tooltip {...props} classes={{ popper: className }} />
-))({
-  [`& .${tooltipClasses.tooltip}`]: {
-    maxWidth: 600,
-    fontSize: "1rem"
-  },
-});
 
 const breakPointsExplaination = `This is due to the device's intermittent data transmission, 
                                   calibration processes, and possible signal interruptions. 
