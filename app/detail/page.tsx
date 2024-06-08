@@ -83,7 +83,7 @@ export default function Page() {
     if (glucoseDataStatus === 'idle' && studyId) {
       dispatch(fetchGlucoseData(studyId));
     }
-  }, [patientsStatus, studiesStatus, glucoseDataStatus, studyId, currentPatientId, dispatch]);
+  }, [patientsStatus, studiesStatus, glucoseDataStatus, studyId, currentPatientId, isPatientFetched, isStudyFetched, dispatch]);
 
   const handleStudyClick = (id: number) => {
     if (id !== studyId) {

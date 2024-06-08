@@ -31,7 +31,7 @@ const SideBarPatientList = (props: SideBarPatientListProps) => {
             </div>
             {patientsList.map(p => {
                 return (
-                    <button className={getButtonTailwindStyleById(p.id)} onClick={() => handleClickCallback(p.id)}>
+                    <button key={p.id} className={getButtonTailwindStyleById(p.id)} onClick={() => handleClickCallback(p.id)}>
                         <PatientAvatar name={p.name} />
                         <div className="ml-2 text-sm">{p.name}</div>
                     </button>
