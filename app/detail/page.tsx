@@ -112,9 +112,9 @@ export default function Page() {
   }
 
   return (
-    <div className='w-full flex flex-row'>
+    <div className='w-full h-screen flex flex-row md:grid md:grid-cols-[20%_auto] md:grid-rows-[100%] md:gap-[8px] md:p-[8px]'>
       <SideBarPatientList handleClickCallback={handleSideBarClick} />
-      <div className="absolute md:left-[20%] w-full md:w-4/5 mx-auto text-center">
+      <div className="w-full mx-auto text-center overflow-y-auto">
         <div className="w-full px-4 pt-4 lg:px-8 flex flex-row justify-between items-center">
           <div className="flex flex-row items-center">
             {currentPatientId - 1 > 0 &&
