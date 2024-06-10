@@ -22,7 +22,7 @@ const initialState: {
   error: string | undefined
 } = {
   patients: [],
-  currentPatientId: -1,
+  currentPatientId: 1,
   status: 'idle',
   error: undefined
 }
