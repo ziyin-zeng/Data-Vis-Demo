@@ -20,14 +20,19 @@ const SideBarPatientList = (props: SideBarPatientListProps) => {
     const patientsList = useAppSelector(selectPatients);
 
     const getButtonTailwindStyleById = (id: number) => {
-        return `flex flex-row items-center p-2 my-2 ml-2 border rounded-xl border-neutral-50 border-solid ${+currentPatientId === id ? 'bg-sky-500' : 'bg-gray-500'}`
+        return `w-full flex flex-row items-center p-2 my-2 rounded-[8px] ${+currentPatientId === id ? 'bg-sky-500' : 'bg-[#121212]'}`
     }
 
     return (
-        <div className='overflow-auto visible max-md:hidden md:border md:rounded-[8px] md:h-full md:overflow-y-auto'>
-            <div className="text-xl">
-                <RecentActorsIcon />
-                Patient list
+        <div className='overflow-auto visible max-md:hidden md:border md:border-zinc-700 md:rounded-[8px] md:h-full md:overflow-y-auto'>
+            <div className="sticky top-0 bg-[#121212] z-10 h-1/6">
+                <div className="flex flex-col items-center justify-end text-xl h-full">
+                    <span>Glucose Data Visualization</span>
+                    <div className="h-1/2 pt-[8px] flex flex-row items-center justify-center">
+                        <RecentActorsIcon />
+                        <span className="pl-[8px]">Patient list</span>
+                    </div>
+                </div>
             </div>
             {patientsList.map(p => {
                 return (
