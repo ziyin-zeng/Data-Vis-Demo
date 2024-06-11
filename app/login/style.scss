@@ -1,0 +1,193 @@
+body,
+html {
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
+
+#root {
+    height: 100%;
+}
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.App {
+    text-align: center;
+}
+
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+.App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+    flex-direction: column;
+    width: 320px;
+    margin: auto;
+}
+
+.title-flex {
+    .title-cyber {
+        color: #AC0BF8;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 17px;
+    }
+
+    .title-sign {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 24px;
+        color: #FFFFFF;
+        padding: 10px 0;
+    }
+
+    .sub-title-flex {
+        display: flex;
+        flex-direction: row;
+
+        .title-help {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+
+            color: #FFFFFF;
+
+            margin-right: 7px;
+        }
+
+        .title-know {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 17px;
+            color: #AC0BF8;
+        }
+    }
+}
+
+.subPassword-flex {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 15px;
+    margin-top: 20px;
+
+    .remember-me {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .forgot {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 15px;
+
+        color: #AC0BF8;
+    }
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+        width: 100%;
+        margin-top: 30px;
+
+        label {
+            display: inline-block;
+            margin-bottom: 10px;
+            text-align: right;
+
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+
+            color: #FFFFFF;
+        }
+
+        input {
+            width: 100%;
+            height: 30px;
+
+            border: 1px solid #B4B4B4;
+            border-radius: 5px;
+
+            padding: 8px;
+        }
+
+        button {
+            width: 100%;
+
+            height: 30px;
+
+            background: #AC0BF8;
+            border-radius: 5px;
+            border: none;
+
+            font-style: normal;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 17px;
+
+            color: #FFFFFF;
+        }
+    }
+}
