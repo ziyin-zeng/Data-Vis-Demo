@@ -4,6 +4,8 @@
 import React, { useEffect, useState } from "react";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import { styled } from '@mui/material/styles';
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 
 // Next
 import { useRouter } from 'next/navigation';
@@ -45,6 +47,7 @@ export default function Page() {
 }
 
 const Title = () => {
+    const explaination = "Due to cybersecurity consideration, JWT is implemented to control access. For a free trial, please type in the e-mail address on my CV, then request access."
     return (
         <div className='title-flex'>
             <div className='title-cyber'>
@@ -57,9 +60,12 @@ const Title = () => {
                 <div className='title-help'>
                     Need help?
                 </div>
-                <div className='title-know'>
-                    Here is ALL you need to know
-                </div>
+                <CustomWidthTooltip title={explaination} placement="right" arrow>
+                    <div className='title-know'>
+                        Here is ALL you need to know
+                    </div>
+                </CustomWidthTooltip>
+
             </div>
         </div>
     )
@@ -99,7 +105,8 @@ const LoginForm = (handleAccessToken: any) => {
                     router.push('/detail');
                 }
             } else {
-                alert(data.message);
+                alert(data);
+                router.push('/');
             }
         }
     }
@@ -133,3 +140,13 @@ const SubPassword = () => {
         </div>
     )
 }
+
+// this is for a larger tooltip
+const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+))({
+    [`& .${tooltipClasses.tooltip}`]: {
+        maxWidth: 350,
+        fontSize: "1rem"
+    },
+});
