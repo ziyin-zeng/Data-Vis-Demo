@@ -59,7 +59,7 @@ const Title = () => {
                     Need help?
                 </div>
                 <CustomWidthTooltip title={explaination} placement="right" arrow>
-                    <div className='title-know'>
+                    <div className='title-know cursor-help'>
                         Here is ALL you need to know
                     </div>
                 </CustomWidthTooltip>
