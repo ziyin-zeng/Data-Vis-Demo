@@ -42,7 +42,7 @@ const PatientDashboard = () => {
 
       // in the argument of [dispatch], [fetchPatients] is called directly
       // which means it will return an action type, as the argument of [dispatch]
-      dispatch(fetchPatients());
+      dispatch(fetchPatients('demo-use-accesstoken'));
     }
   }, [patientsStatus, dispatch]);
 
