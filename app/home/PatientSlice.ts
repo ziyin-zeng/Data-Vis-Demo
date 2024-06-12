@@ -29,8 +29,10 @@ const initialState: {
 
 // Function [createAsyncThunk] takes in the name of Async action, which is in this case 'patients/fetchPatients'
 // Function [createAsyncThunk] takes in a callback arrow function, which fetchs data from a given API and returns a Promise Object
-export const fetchPatients = createAsyncThunk('patients/fetchPatients', async () => {
-  const response = await axios.get("https://gsqhu30ux2.execute-api.eu-west-3.amazonaws.com/patient");
+export const fetchPatients = createAsyncThunk('patients/fetchPatients', async (accessToken: string) => {
+  console.log('accessToken + ' + accessToken);
+  
+  const response = await axios.get("https://gsqhu30ux2.execute-api.eu-west-3.amazonaws.com/patient", { headers: {"Authorization" : `Bearer ${accessToken}`}, withCredentials: true });
   return response.data;
 })
 

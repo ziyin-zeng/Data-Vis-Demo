@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from "../store/hook";
 import { selectPatientById, getPatientListLength, setCurrentPatientId, selectCurrentPatientId, fetchPatients, setFetchPatientStatus } from "@/app/home/PatientSlice";
 import { fetchStudies, setFetchStudyStatus, selectStudies } from "@/app/detail/StudySlice";
 import { selectGlucoseData, fetchGlucoseData, setFetchGlucoseStatus } from "@/app/detail/GlucoseSlice";
+import { selectToken } from '../login/TokenSlice';
 
 // In-Project
 import GlucoseChart from "../ui/detail/GlucoseChart";
@@ -30,6 +31,7 @@ export default function Page() {
   const [isStudyFetched, setIsStudyFetched] = useState<boolean>(false);
   const [isPatientFetched, setIsPatientFetched] = useState<boolean>(false);
 
+  const accessToken = useAppSelector(selectToken);
   const currentPatientId = useAppSelector(selectCurrentPatientId);
   // use the [patientId] from URL to select patient object
   const patient = useAppSelector((state) => selectPatientById(state, currentPatientId));
@@ -64,14 +66,14 @@ export default function Page() {
 
       // in the argument of [dispatch], [fetchPatients] is called directly
       // which means it will return an action type, as the argument of [dispatch]
-      dispatch(fetchPatients())
+      dispatch(fetchPatients(accessToken))
         .then(response => {
           setIsPatientFetched(true);
           dispatch(setFetchPatientStatus('idle'));
         });
     }
     if (studiesStatus === 'idle' && !isStudyFetched) {
-      dispatch(fetchStudies(currentPatientId))
+      dispatch(fetchStudies({ currentPatientId, accessToken }))
         .then(response => {
           if (!isStudyFetched) {
             setStudyId(response.payload[0]?.id)
@@ -81,7 +83,7 @@ export default function Page() {
         });
     }
     if (glucoseDataStatus === 'idle' && studyId) {
-      dispatch(fetchGlucoseData(studyId));
+      dispatch(fetchGlucoseData({ studyId, accessToken }));
     }
   }, [patientsStatus, studiesStatus, glucoseDataStatus, studyId, currentPatientId, isPatientFetched, isStudyFetched, dispatch]);
 
@@ -103,7 +105,7 @@ export default function Page() {
   }
 
   const getButtonTailwindStyleById = (id: number) => {
-    return `w-[20%] xl:w-[10%] px-2 mr-2 border rounded-2xl border-neutral-50 border-solid ${studyId === id ? 'bg-sky-500' : 'bg-gray-500'}`
+    return `w-[20%] xl:w-[10%] px-2 mr-2 border rounded-2xl border-neutral-50 border-solid ${studyId === id ? 'bg-[#AC0BF8]' : 'bg-gray-500'}`
   }
 
   const handleSideBarClick = (selectedId: number) => {

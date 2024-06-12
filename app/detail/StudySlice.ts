@@ -18,8 +18,10 @@ const initialState: {
     error: undefined
 }
 
-export const fetchStudies = createAsyncThunk('studies/fetchStudies', async (patientId: number) => {
-    const response = await axios.get(`https://5kzf0lo9ee.execute-api.eu-west-3.amazonaws.com/study/patient/${patientId}`)
+export const fetchStudies = createAsyncThunk('studies/fetchStudies', async (argsObj: { currentPatientId: number, accessToken: string }) => {
+    const { currentPatientId, accessToken } = argsObj;
+
+    const response = await axios.get(`https://5kzf0lo9ee.execute-api.eu-west-3.amazonaws.com/study/patient/${currentPatientId}`, { headers: { "Authorization": `Bearer ${accessToken}` }, withCredentials: true });
     return response.data;
 });
 

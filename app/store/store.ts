@@ -8,6 +8,7 @@ import autoMergeLevel1 from "redux-persist/es/stateReconciler/autoMergeLevel1"
 import patientsReducer from "../home/PatientSlice";
 import studiesReducer from "../detail/StudySlice";
 import glucoseReducer from "../detail/GlucoseSlice";
+import tokenReducer from "../login/TokenSlice";
 
 const persistConfig = {
   key: 'root',
@@ -22,6 +23,7 @@ const store = configureStore({
     patients: persistedReducer,
     studies: studiesReducer,
     glucoseData: glucoseReducer,
+    token: tokenReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

@@ -5,29 +5,36 @@ import React, { useEffect, useState } from "react";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
+// Next
+import { useRouter } from 'next/navigation';
+
+// Redux
+import { useAppDispatch, useAppSelector } from "../store/hook";
+import { addToken } from "@/app/login/TokenSlice";
+
 // In-Project
 import './style.scss';
 
 export default function Page() {
     const [accessToken, setAccessToken] = useState(null);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            fetch('http://localhost:3001/refresh_token', {
-                method: 'POST',
-                credentials: 'include'
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.accessToken) {
-                        setAccessToken(data.accessToken);
-                    }
-                })
-                .catch(error => console.error('Error refreshing token:', error));
-        }, 5 * 60 * 1000); // 1 min refresh - access token
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         fetch('http://localhost:3001/refresh_token', {
+    //             method: 'POST',
+    //             credentials: 'include'
+    //         })
+    //             .then(response => response.json())
+    //             .then(data => {
+    //                 if (data.accessToken) {
+    //                     setAccessToken(data.accessToken);
+    //                 }
+    //             })
+    //             .catch(error => console.error('Error refreshing token:', error));
+    //     }, 5 * 60 * 1000); // 1 min refresh - access token
 
-        return () => clearInterval(interval);
-    }, []);
+    //     return () => clearInterval(interval);
+    // }, []);
 
     return (
         <div className='container'>
@@ -60,6 +67,8 @@ const Title = () => {
 
 const LoginForm = (handleAccessToken: any) => {
     const { setAccessToken } = handleAccessToken;
+    const router = useRouter();
+    const dispatch = useAppDispatch();
     const [isSubmited, setIsSubmited] = useState(false);
 
     const handleSubmit = async (e: any) => {
@@ -86,7 +95,11 @@ const LoginForm = (handleAccessToken: any) => {
             if (res.ok) {
                 if (data.accessToken) {
                     setAccessToken(data.accessToken);
+                    dispatch(addToken(data.accessToken));
+                    router.push('/detail');
                 }
+            } else {
+                alert(data.message);
             }
         }
     }

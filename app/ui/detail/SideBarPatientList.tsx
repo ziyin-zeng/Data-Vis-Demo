@@ -20,7 +20,7 @@ const SideBarPatientList = (props: SideBarPatientListProps) => {
     const patientsList = useAppSelector(selectPatients);
 
     const getButtonTailwindStyleById = (id: number) => {
-        return `w-full flex flex-row items-center p-2 my-2 rounded-[8px] ${+currentPatientId === id ? 'bg-sky-500' : 'bg-[#121212]'}`
+        return `w-full flex flex-row items-center p-2 my-2 rounded-[8px] ${+currentPatientId === id ? 'bg-[#AC0BF8]' : 'bg-[#121212]'}`
     }
 
     return (

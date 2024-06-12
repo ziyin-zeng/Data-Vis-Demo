@@ -81,7 +81,7 @@ export default function ExplainationPopup(props: ExplainationPopupProps) {
 
     return (
         <React.Fragment>
-            <button className='w-[50%] xl:w-[37%] my-2 text-sky-600 border rounded-2xl border-sky-300 border-solid hover:bg-gray-100' onClick={handleClickOpen}>Learn More</button>
+            <button className='w-[50%] xl:w-[37%] my-2 text-[#AC0BF8] border rounded-2xl border-[#AC0BF8] border-solid hover:bg-gray-100' onClick={handleClickOpen}>Learn More</button>
             <BootstrapDialog
                 onClose={handleClose}
                 aria-labelledby="customized-dialog-title"
@@ -99,7 +99,7 @@ export default function ExplainationPopup(props: ExplainationPopupProps) {
                     </div>
                 </DialogContent>
                 <DialogActions>
-                    <button className='text-sky-600 p-2' onClick={handleClose}>OK, got it</button>
+                    <button className='text-[#AC0BF8] p-2' onClick={handleClose}>OK, got it</button>
                 </DialogActions>
             </BootstrapDialog>
         </React.Fragment>

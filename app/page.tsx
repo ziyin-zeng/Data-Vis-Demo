@@ -18,7 +18,7 @@ export default function Home() {
           height={24}
           priority
         />
-        <Link href="/detail">
+        <Link href="/login">
           <div className="ml-2 underline text-xl">Explore</div>
         </Link>
       </div>
