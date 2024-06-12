@@ -1,7 +1,7 @@
 "use client";
 
 // React
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { styled } from '@mui/material/styles';
@@ -11,15 +11,13 @@ import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import { useRouter } from 'next/navigation';
 
 // Redux
-import { useAppDispatch, useAppSelector } from "../store/hook";
+import { useAppDispatch } from "../store/hook";
 import { addToken } from "@/app/login/TokenSlice";
 
 // In-Project
 import './style.scss';
 
 export default function Page() {
-    const [accessToken, setAccessToken] = useState(null);
-
     // useEffect(() => {
     //     const interval = setInterval(() => {
     //         fetch('http://localhost:3001/refresh_token', {
@@ -41,7 +39,7 @@ export default function Page() {
     return (
         <div className='container'>
             <Title />
-            <LoginForm setAccessToken={setAccessToken} />
+            <LoginForm />
         </div>
     );
 }
@@ -71,8 +69,7 @@ const Title = () => {
     )
 }
 
-const LoginForm = (handleAccessToken: any) => {
-    const { setAccessToken } = handleAccessToken;
+const LoginForm = () => {
     const router = useRouter();
     const dispatch = useAppDispatch();
     const [isSubmited, setIsSubmited] = useState(false);
@@ -100,7 +97,6 @@ const LoginForm = (handleAccessToken: any) => {
 
             if (res.ok) {
                 if (data.accessToken) {
-                    setAccessToken(data.accessToken);
                     dispatch(addToken(data.accessToken));
                     router.push('/detail');
                 }

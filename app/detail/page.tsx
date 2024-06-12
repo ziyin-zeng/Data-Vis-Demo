@@ -11,6 +11,7 @@ import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 
 // Next
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
 
 // Redux
 import { useAppDispatch, useAppSelector } from "../store/hook";
@@ -26,12 +27,17 @@ import GlucoseAnalysis from "../ui/detail/GlucoseAnalysis";
 import SideBarPatientList from '../ui/detail/SideBarPatientList';
 
 export default function Page() {
+  const router = useRouter();
+  const accessToken = useAppSelector(selectToken);
+  if(!accessToken) {
+    router.push('/');
+  }
+
   // this is for multiple study scenario, user could choose between studyIds
   const [studyId, setStudyId] = useState<number>();
   const [isStudyFetched, setIsStudyFetched] = useState<boolean>(false);
   const [isPatientFetched, setIsPatientFetched] = useState<boolean>(false);
 
-  const accessToken = useAppSelector(selectToken);
   const currentPatientId = useAppSelector(selectCurrentPatientId);
   // use the [patientId] from URL to select patient object
   const patient = useAppSelector((state) => selectPatientById(state, currentPatientId));
@@ -76,6 +82,9 @@ export default function Page() {
       dispatch(fetchStudies({ currentPatientId, accessToken }))
         .then(response => {
           if (!isStudyFetched) {
+            if(!response.payload) {
+              return;
+            }
             setStudyId(response.payload[0]?.id)
             setIsStudyFetched(true);
             dispatch(setFetchGlucoseStatus('idle'));    // make sure glucose data will be fetched immediately after study is fetched
@@ -113,7 +122,7 @@ export default function Page() {
     setIsStudyFetched(false);   // need to set isStudyFetched to false, since we do need to re-fetch study after another patient is rendered
   }
 
-  return (
+  return accessToken && (
     <div className='w-full h-screen flex flex-row md:grid md:grid-cols-[20%_auto] md:grid-rows-[100%] md:gap-[8px] md:p-[8px]'>
       <SideBarPatientList handleClickCallback={handleSideBarClick} />
       <div className="w-full mx-auto text-center overflow-y-auto">
