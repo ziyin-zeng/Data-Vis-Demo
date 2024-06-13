@@ -18,24 +18,6 @@ import { addToken } from "@/app/login/TokenSlice";
 import './style.scss';
 
 export default function Page() {
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         fetch('http://localhost:3001/refresh_token', {
-    //             method: 'POST',
-    //             credentials: 'include'
-    //         })
-    //             .then(response => response.json())
-    //             .then(data => {
-    //                 if (data.accessToken) {
-    //                     setAccessToken(data.accessToken);
-    //                 }
-    //             })
-    //             .catch(error => console.error('Error refreshing token:', error));
-    //     }, 5 * 60 * 1000); // 1 min refresh - access token
-
-    //     return () => clearInterval(interval);
-    // }, []);
-
     return (
         <div className='container'>
             <Title />
