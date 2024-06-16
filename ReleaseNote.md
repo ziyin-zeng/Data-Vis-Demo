@@ -1,5 +1,33 @@
 # Release Notes
 
+## Version 1.1.0 - 16 / 06 / 2024
+---
+## Overview
+
+- Sprint : 10/06/2024 - 16/06/2024
+- Grid layout
+- Sidebar refined
+- Login page
+- JWT implemented
+
+## Features
+
+- [[Feature] Grid layout added](0e50aa5bb8ff396c2716bcd94d8e98d7a41b3496)
+- [[Feature] Sidebar header added & Glb. style change](6ddeb542b5a2af9805e92d64ba2b0c78cff6a1ad)
+- [[Feature-NOR] Login page added](3e6b3fde55bb7a515675c912d49e1cc8dfae94a8)
+- [[Feature] Add jwt token](210474de8edd024049e3ad57a6b817af0fad5af2)
+
+## Bug Fixes
+
+- [[Fix] Fix build problem](aaff95a3548eae3767c20870a90af896614591b0)
+- [[Fix] Restrict direct acces 2 detail page from url](fbeb1886d5c3bbe11e24d4a459cc4f7dff5edcb4)
+- [[Fix] Cursor icon change](72892df2f1ad54f3485ba34b3162c64e9b9247dd)
+- [[Fix] Fix Dark & Light mode bug](d526142691f5342d735633d63d2d09908d7a535e)
+
+## Known Issues
+
+- See issue section: [link](https://github.com/ziyin-zeng/Data-Vis-Demo/issues)
+
 ## Version 1.0.2 - 08 / 06 / 2024
 ---
 ## Overview
