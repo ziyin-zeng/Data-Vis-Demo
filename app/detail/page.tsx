@@ -25,6 +25,7 @@ import GlucoseChart from "../ui/detail/GlucoseChart";
 import PatientBasicInfo from "../ui/detail/PatientBasicInfo";
 import GlucoseAnalysis from "../ui/detail/GlucoseAnalysis";
 import SideBarPatientList from '../ui/detail/SideBarPatientList';
+import GlobalLoading from '../ui/GlobalLoading';
 
 export default function Page() {
   const router = useRouter();
@@ -122,7 +123,8 @@ export default function Page() {
     setIsStudyFetched(false);   // need to set isStudyFetched to false, since we do need to re-fetch study after another patient is rendered
   }
 
-  return accessToken && (
+  return !isPatientFetched ? <GlobalLoading />
+    : accessToken && (
     <div className='w-full h-screen flex flex-row md:grid md:grid-cols-[20%_auto] md:grid-rows-[100%] md:gap-[8px] md:p-[8px]'>
       <SideBarPatientList handleClickCallback={handleSideBarClick} />
       <div className="w-full mx-auto text-center overflow-y-auto">
