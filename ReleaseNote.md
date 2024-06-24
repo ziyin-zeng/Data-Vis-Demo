@@ -1,5 +1,21 @@
 # Release Notes
 
+## Version 1.1.1 - 23 / 06 / 2024
+---
+## Overview
+
+- Sprint : 17/06/2024 - 23/06/2024
+- Fix animation & responsive layout
+
+## Bug Fixes
+
+- [[Fix] Fix of #11, add md & xl break points](fdd40cf9a59d13e757a43d4d506946a0510831cf)
+- [[Fix] Fix of #10,add detail page loading animation](eb675be9d3f3324d9439fbda5604fbeae3405016)
+
+## Known Issues
+
+- See issue section: [link](https://github.com/ziyin-zeng/Data-Vis-Demo/issues)
+
 ## Version 1.1.0 - 16 / 06 / 2024
 ---
 ## Overview
