@@ -1,7 +1,7 @@
 # What is this project ?
 Live demo : [Vercel](https://data-vis-demo.vercel.app/)
 
-This project is being continuously updated, a one-week sprint is scheduled, thus live demo will be released each Saturday.
+This project is being continuously updated.
 
 For previous release : [Releases](./ReleaseNote.md)
 
