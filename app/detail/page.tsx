@@ -30,7 +30,7 @@ import GlobalLoading from '../ui/GlobalLoading';
 export default function Page() {
   const router = useRouter();
   const accessToken = useAppSelector(selectToken);
-  if(!accessToken) {
+  if (!accessToken) {
     router.push('/');
   }
 
@@ -83,7 +83,7 @@ export default function Page() {
       dispatch(fetchStudies({ currentPatientId, accessToken }))
         .then(response => {
           if (!isStudyFetched) {
-            if(!response.payload) {
+            if (!response.payload) {
               return;
             }
             setStudyId(response.payload[0]?.id)
@@ -125,39 +125,39 @@ export default function Page() {
 
   return !isPatientFetched ? <GlobalLoading />
     : accessToken && (
-    <div className='w-full h-screen flex flex-row md:grid md:grid-cols-[20%_auto] md:grid-rows-[100%] md:gap-[8px] md:p-[8px]'>
-      <SideBarPatientList handleClickCallback={handleSideBarClick} />
-      <div className="w-full mx-auto text-center overflow-y-auto">
-        <div className="w-full px-4 pt-4 lg:px-8 flex flex-row justify-between items-center">
-          <div className="flex flex-row items-center">
-            {currentPatientId - 1 > 0 &&
-              <button className="mr-2 w-full border px-2 rounded-2xl bg-gray-500"
-                onClick={() => handlePatientNavButtonClick('previous')}
-              >
-                <CustomWidthTooltip title={"Previous patient"} placement="bottom" arrow>
-                  <NavigateBeforeIcon />
-                </CustomWidthTooltip>
-              </button>}
-            {currentPatientId + 1 <= patientNumber &&
-              <button className="w-full border px-2 rounded-2xl bg-gray-500"
-                onClick={() => handlePatientNavButtonClick('next')}
-              >
-                <CustomWidthTooltip title={"Next patient"} placement="bottom" arrow>
-                  <NavigateNextIcon />
-                </CustomWidthTooltip>
-              </button>}
+      <div className='w-full h-screen flex flex-row md:grid md:grid-cols-[20%_auto] md:grid-rows-[100%] md:gap-[8px] md:p-[8px]'>
+        <SideBarPatientList handleClickCallback={handleSideBarClick} />
+        <div className="w-full mx-auto text-center overflow-y-auto">
+          <div className="w-full px-4 pt-4 lg:px-8 flex flex-row justify-between items-center">
+            <div className="flex flex-row items-center">
+              {currentPatientId - 1 > 0 &&
+                <button className="mr-2 w-full border px-2 rounded-2xl bg-gray-500"
+                  onClick={() => handlePatientNavButtonClick('previous')}
+                >
+                  <CustomWidthTooltip title={"Previous patient"} placement="bottom" arrow>
+                    <NavigateBeforeIcon />
+                  </CustomWidthTooltip>
+                </button>}
+              {currentPatientId + 1 <= patientNumber &&
+                <button className="w-full border px-2 rounded-2xl bg-gray-500"
+                  onClick={() => handlePatientNavButtonClick('next')}
+                >
+                  <CustomWidthTooltip title={"Next patient"} placement="bottom" arrow>
+                    <NavigateNextIcon />
+                  </CustomWidthTooltip>
+                </button>}
+            </div>
+            <Link href="/" className="border px-4 rounded-2xl bg-gray-500">
+              <HomeIcon />
+            </Link>
           </div>
-          <Link href="/" className="border px-4 rounded-2xl bg-gray-500">
-            <HomeIcon />
-          </Link>
+          {patient ? <PatientBasicInfo patient={patient} /> : <div>There is no patient data</div>}
+          <div className='text-start pl-8'>{study.map(s => <button className={getButtonTailwindStyleById(s.id)} key={s.id} onClick={() => handleStudyClick(s.id)}>{"Study No." + s.id}</button>)}</div>
+          <GlucoseAnalysis glucoseData={glucoseData} glucoseDataStatus={glucoseDataStatus} />
+          <GlucoseChart glucoseData={glucoseData} glucoseDataStatus={glucoseDataStatus} />
         </div>
-        {patient ? <PatientBasicInfo patient={patient} /> : <div>There is no patient data</div>}
-        <div className='text-start pl-8'>{study.map(s => <button className={getButtonTailwindStyleById(s.id)} key={s.id} onClick={() => handleStudyClick(s.id)}>{"Study No." + s.id}</button>)}</div>
-        <GlucoseAnalysis glucoseData={glucoseData} glucoseDataStatus={glucoseDataStatus} />
-        <GlucoseChart glucoseData={glucoseData} glucoseDataStatus={glucoseDataStatus} />
       </div>
-    </div>
-  );
+    );
 }
 
 // this is for a larger tooltip

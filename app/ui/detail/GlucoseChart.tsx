@@ -5,6 +5,7 @@ import { styled } from '@mui/material/styles';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import TipsAndUpdatesOutlinedIcon from '@mui/icons-material/TipsAndUpdatesOutlined';
 import CircularProgress from '@mui/material/CircularProgress';
+import { Skeleton } from '@mui/material';
 
 // 3rd party library
 import ReactEcharts from "echarts-for-react";
@@ -111,9 +112,11 @@ const GlucoseChart = (props: GlucoseChartProps) => {
           <TipsAndUpdatesOutlinedIcon sx={{ marginRight: "5px", marginBottom: "5px" }} />
         </TextWithIcon>
       </div>
-      <div className="px-4 pb-2 lg:px-10 lg:pb-8">
-        <ReactEcharts option={option} />
-      </div>
+      {glucoseDataStatus === 'loading' 
+        ? <Skeleton variant="rectangular" width={"75%"} height={"200px"} sx={{ marginLeft: "12%", marginTop: "5%", background: "#6b728052", borderRadius: "30px" }} />
+        : <div className="px-4 pb-2 lg:px-10 lg:pb-8">
+            <ReactEcharts option={option} />
+          </div>}
     </div>
   );
 };
