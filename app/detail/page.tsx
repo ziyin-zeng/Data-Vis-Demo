@@ -22,6 +22,7 @@ import { selectToken } from '../login/TokenSlice';
 
 // In-Project
 import GlucoseChart from "../ui/detail/GlucoseChart";
+import GlucoseMultiChart from "../ui/detail/GlucoseMultiChart";
 import PatientBasicInfo from "../ui/detail/PatientBasicInfo";
 import GlucoseAnalysis from "../ui/detail/GlucoseAnalysis";
 import SideBarPatientList from '../ui/detail/SideBarPatientList';
@@ -155,6 +156,7 @@ export default function Page() {
           <div className='text-start pl-8'>{study.map(s => <button className={getButtonTailwindStyleById(s.id)} key={s.id} onClick={() => handleStudyClick(s.id)}>{"Study No." + s.id}</button>)}</div>
           <GlucoseAnalysis glucoseData={glucoseData} glucoseDataStatus={glucoseDataStatus} />
           <GlucoseChart glucoseData={glucoseData} glucoseDataStatus={glucoseDataStatus} />
+          <GlucoseMultiChart glucoseData={glucoseData} glucoseDataStatus={glucoseDataStatus} />
         </div>
       </div>
     );
