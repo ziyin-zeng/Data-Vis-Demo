@@ -24,6 +24,22 @@ export const getAllGlucoseValueAndDate = (glucoseDataList: GlucoseDataType[]): n
 
 /**
  * @author: Ziyin ZENG
+ * @description: take out all glucose value of the recent 7 days from the return of getAllGlucoseValueAndDate
+ *
+ * @param: {glucoseDataList: GlucoseDataType[]}
+ * @returns: {number[][]}
+ */
+ export const getSevenDaysGlucoseValueAndDate = (glucoseDataList: number[][]): number[][] => {
+    const result = [];
+    for(let i = 0; i < 7; i++) {
+        let glucoseDataOneDayList = glucoseDataList.slice(i*48, i*48 + 48);
+        result.push(glucoseDataOneDayList.map(gd => gd[1]));
+    }
+    return result;
+}
+
+/**
+ * @author: Ziyin ZENG
  * @description: calculate average glucose value
  *
  * @param: {glucoseList: number[]}
