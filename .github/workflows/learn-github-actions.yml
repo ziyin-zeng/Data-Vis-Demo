@@ -1,0 +1,13 @@
+name: learn-github-actions                                    # name of workflow
+run-name: ${{ github.actor }} is learning GitHub Actions      # name appeared in the list of workflow
+on: [push]                                                    # trigger, could be specified down to a certain branch push
+jobs:                                                         # grouper, multi jobs
+  check-bats-version:                                         # one single job name
+    runs-on: ubuntu-latest                                    # choose between Ubuntu Linux、Microsoft Windows and macOS
+    steps:                                                    # steps for this one specific job, could be action or shell script
+      - uses: actions/checkout@v4                             # an action that checks out the repository onto the runner
+      - uses: actions/setup-node@v4                           # install Node.js. & put both the node and npm commands in the PATH.
+        with:
+          node-version: '20'
+      - run: npm install -g bats                              # shell script
+      - run: bats -v
