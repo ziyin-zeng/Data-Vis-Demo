@@ -13,15 +13,15 @@ test('avg [1] to equal 1', () => {
 });
 
 test('tir [1, 5, 7, 10] to equal 0.5', () => {
-    expect(tirGlucose([1, 5, 7, 10])).toBe('50.0%')
+    expect(tirGlucose([1, 5, 7, 10])).toBe('50.0')
 })
 
 test('tir [1] to equal 0', () => {
-    expect(tirGlucose([1])).toBe('0.0%')
+    expect(tirGlucose([1])).toBe('0.0')
 })
 
 test('tir [5, 6, 7] to equal 1', () => {
-    expect(tirGlucose([5, 6, 7])).toBe('100.0%')
+    expect(tirGlucose([5, 6, 7])).toBe('100.0')
 })
 
 test('tir [] to equal 0', () => {
