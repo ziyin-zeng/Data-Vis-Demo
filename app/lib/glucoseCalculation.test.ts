@@ -25,5 +25,5 @@ test('tir [5, 6, 7] to equal 1', () => {
 })
 
 test('tir [] to equal 0', () => {
-    expect(tirGlucose([])).toBe('0.0%')
+    expect(tirGlucose([])).toBe('0.0')
 })
